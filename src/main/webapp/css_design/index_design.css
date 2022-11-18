@@ -1,0 +1,103 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	color: black;
+	overflow: hidden;
+	list-style: none;
+	text-align: center;
+	background: linear-gradient( to bottom, yellow, white );
+	
+}
+
+ul li {
+	list-style: none;
+}
+
+.header_container {
+	background-color: white;
+	width: 500px;
+	margin: auto;
+	padding-top: 50px;
+	border-left: double;
+	border-right: double;
+	border-top: double;
+}
+
+.section_container {
+	width: 500px;
+	height: 305px;
+	border: 1px solid white;
+	margin: auto;
+	background-color: white;
+	border-left: double;
+	border-right: double;
+	border-bottom: double;
+}
+
+.logo {
+	width: 120px;
+	height: 120px;
+	margin-top: 50px;
+}
+
+p {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+inputBtn:hover {
+	cursor: pointer;
+}
+
+.bottom_container {
+	overflow: hidden;
+	margin: 0 auto;
+	padding: 20px;
+	display: flex;
+	width: 720px;
+	justify-content: center;
+	color: black;
+	align-content: stretch;
+}
+
+ul {
+	padding: 30px;
+	font-size: 18px;
+}
+
+ul li {
+	padding: 10px;
+}
+
+.inputBox {
+	width: 200px;
+	height: 25px;
+}
+
+.inputBtn {
+	width: 140px;
+	height: 35px;
+	background-color: black;
+	color: white;
+	border-radius: 10px;
+}
+
+footer {
+	font-size: 12px;
+	padding: 8px;
+}

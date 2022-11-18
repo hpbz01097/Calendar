@@ -1,0 +1,44 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: linear-gradient( to bottom, yellow, white );
+	color: black;
+	overflow: hidden;
+	list-style: none;
+	text-align: center;
+}
+
+.insert_container {
+	margin: 0 auto;
+	padding: 20px;
+	border: double;
+	display: flex;
+	width: 720px;
+	justify-content: center;
+	height: 500px;
+	text-align: center;
+	line-height: 20px;
+	flex-direction: column;
+	background-color: white;
+}
+
+form {
+	line-height: 30px;
+	padding: 20px;
+	height: 350px;
+	margin: 0 auto;
+}
+
+table {
+	text-align: center;
+	padding: 10px;
+}
+
+.inputBtn {
+	width: 120px;
+	height: 25px;
+}

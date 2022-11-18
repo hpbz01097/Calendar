@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="UserDAO">
+
+ 	<resultMap type="com.company.biz.user.UserVO" id="userResult">
+		<result property="user_no" column="user_no" />
+		<result property="user_id" column="user_id" />
+		<result property="pwd" column="pwd" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="gender" column="gender" />
+		<result property="age" column="age" />
+		<result property="grade" column="grade" />
+		<result property="salary" column="salary" />
+	</resultMap> 
+	
+	<select id="selectPhoneOverLap" parameterType="String" resultType="int">
+		select count(phone) from PAYSLIP_USER where phone = #{phone}
+	</select>
+	
+	<select id="selectIDbyPhone" parameterType="String" resultType="String" > 
+		select user_id from PAYSLIP_USER where phone = #{phone}
+	</select>
+	
+	<select id="selectPWDbyPhoneAndUser_id" parameterType="java.util.Map" resultType="String" > 
+		select pwd from PAYSLIP_USER where phone = user_id = #{user_id}  and phone = #{phone}
+	</select>
+
+<!-- 	조인시키기 -->
+ 	<select id="getUserList" resultMap="userResult">
+		select u.user_no , u.name , u.phone , u.grade, SUM(s.salary) as salary 
+		from PAYSLIP_USER u LEFT OUTER JOIN schedule s
+		on u.user_no=s.user_no
+		group by u.user_no
+		order by u.user_no asc;
+	</select> 
+
+	<select id="getUser" resultType="user">
+		select * from PAYSLIP_USER where user_id=#{user_id} and pwd=#{pwd}
+	</select>
+	
+	<select id="getMaxUser_no" resultType="int">
+		select max(user_no) as user_no from PAYSLIP_USER
+	</select>
+	
+	<select id="getUserByUser_no" parameterType="int" resultType="user">
+		select * from PAYSLIP_USER where user_no = #{user_no}
+	</select>
+	
+	<select id="getAdmin" resultMap="userResult">
+		select * from PAYSLIP_USER where grade = 0
+	</select>
+	
+	<insert id="insertWorker">
+		insert into PAYSLIP_USER values (#{user_no},#{name},#{phone},#{name},#{phone},#{gender},#{age},1)
+	</insert>
+	
+	<insert id="addAdmin" parameterType="user">
+		insert into PAYSLIP_USER values(
+		#{user_no},
+		#{user_id},
+		#{pwd}, 
+		#{name}, 
+		#{phone},
+		#{gender},
+		#{age}, 
+		#{grade}
+		)
+	</insert>
+	
+	<update id="updateUser" parameterType="java.util.Map">
+		update PAYSLIP_USER set user_id = #{user_id},
+			pwd = #{pwd} , name = #{name} , phone = #{phone},
+			gender = #{gender} , age = #{age} 
+			where user_no = #{user_no}
+	</update>
+	
+	<delete id="deleteUser" parameterType="int">
+		DELETE PAYSLIP_USER, SCHEDULE 			
+		FROM PAYSLIP_USER
+		    INNER JOIN
+		    SCHEDULE ON SCHEDULE.user_no = PAYSLIP_USER.user_no
+		WHERE
+		    PAYSLIP_USER.user_no = #{user_no};
+		
+	</delete>
+	
+</mapper>

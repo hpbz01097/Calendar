@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="myBatisScheduleDAO">
+
+ 	<resultMap type="com.company.biz.schedule.ScheduleVO" id="scheduleResult">
+		<result property="user_no" column="user_no" />
+		<result property="schedule_no" column="schedule_no" />
+		<result property="name" column="name" />
+		<result property="work_start_time" column="work_start_time" />
+		<result property="work_end_time" column="work_end_time" />
+		<result property="work_start_date" column="work_start_date" />
+		<result property="work_end_date" column="work_end_date" />
+		<result property="salary" column="salary" />
+	</resultMap> 
+	
+ 	<resultMap type="com.company.biz.schedule.UserScheduleVO" id="userScheduleResult">
+ 		<result property="user_no" column="user_no" />
+		<result property="user_id" column="user_id" />
+		<result property="pwd" column="pwd" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="gender" column="gender" />
+		<result property="age" column="age" />
+		<result property="grade" column="grade" />
+		<result property="schedule_no" column="schedule_no" />
+		<result property="work_start_time" column="work_start_time" />
+		<result property="work_end_time" column="work_end_time" />
+		<result property="work_start_date" column="work_start_date" />
+		<result property="work_end_date" column="work_end_date" />
+	</resultMap> 
+
+
+
+
+	<select id="getScheduleList" resultType="schedule">
+		select A.user_no, 
+		         A.name, 
+		       B.schedule_no,  
+		       B.work_start_date, 
+		       B.work_end_date, 
+		       B.work_start_time, 
+		       B.work_end_time 
+		from PAYSLIP_USER A, SCHEDULE B 
+		WHERE A.user_no = B.user_no
+		order by schedule_no desc;
+	</select>
+	
+	<select id="getSchedule" resultType="schedule">
+		select max(User_NO) as user_no from SCHEDULE
+	</select>
+	
+	<select id="getMaxSchedule_no" resultType="int">
+		select max(schedule_no) as schedule_no from SCHEDULE
+	</select>
+	
+	<select id="getScheduleListByUser_no" parameterType="int" resultMap="userScheduleResult">
+				select A.user_no, 
+		         A.name,
+		         A.user_id,
+		         A.pwd,
+		         A.phone,
+		         A.gender,
+		         A.age,
+		         A.grade,
+		       B.schedule_no,  
+		       B.work_start_date, 
+		       B.work_end_date, 
+		       B.work_start_time, 
+		       B.work_end_time 
+		from PAYSLIP_USER A, SCHEDULE B 
+		WHERE A.user_no = B.user_no and B.user_no = #{user_no}
+		order by schedule_no desc;
+	</select>
+	
+	<insert id="insertSchedule" parameterType="java.util.Map">
+		insert into SCHEDULE values (#{map.user_no} , #{map.schedule_no}, #{map.name} , #{map.work_start_time}, #{map.work_end_time}, #{map.work_start_date}, #{map.work_end_date}, #{salary.salary})
+	</insert>
+	
+		<update id="updateSchedule" parameterType="java.util.Map">
+			<![CDATA[
+			update SCHEDULE set name = #{map.name},
+			work_start_date = #{map.work_start_date} , work_end_date = #{map.work_end_date} ,
+			work_start_time = #{map.work_start_time} , work_end_time = #{map.work_end_time} ,
+			salary = #{salary.salary}
+			]]>
+			<where>
+				<if test="map.user_no != null and map.user_no != '' ">
+					user_no = #{map.user_no}
+				</if>
+				<if test="map.schedule_no != null and map.schedule_no != '' ">
+					and schedule_no = #{map.schedule_no}
+				</if>
+			</where>
+
+		</update>
+		
+		
+		
+	
+<!-- 	<delete id="deleteSchedule" parameterType="int">
+		delete from SCHEDULE where user_no = #{user_no}
+	</delete> -->
+	
+</mapper>
