@@ -28,8 +28,8 @@
 	<form action="${contextPath }/findPWD.do" method="post" style="padding: 0px;">
 
 		<ul>
-			<li>아이디 <input type="text" id="user_id" name="user_id" class="inputBox" required="required"></li>
-			<li>핸드폰번호 <input type="text" id="phone" name="phone" class="inputBox" placeholder="숫자만 입력해주세요" required="required"></li>
+			<li><b>아이디</b> <input type="text" id="user_id" name="user_id" class="inputBox" required="required"></li>
+			<li><b>핸드폰번호</b> <input type="text" id="phone" name="phone" class="inputBox" placeholder="숫자만 입력해주세요" required="required"></li>
 		</ul>
 
 	<input type="submit" value="등록" class="inputBtn">
