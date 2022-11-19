@@ -28,11 +28,10 @@
 		</li>
 	</ul>	
 </form>
-</div>
-<div class="bottom_container">
 <a href="${contextPath}/findIDForm.do">아이디 찾기</a>&nbsp;&nbsp;/&nbsp;&nbsp;
 <a href="${contextPath}/findPWDForm.do">비밀번호 찾기</a>
 </div>
+<br>
 <footer>
 <span> Maker : MyoungMoonShin</span><br>
 <span> Email : hpbz01097@naver.com </span><br>

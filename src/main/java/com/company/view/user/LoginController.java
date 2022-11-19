@@ -244,7 +244,7 @@ public class LoginController {
 	
 	
 	@RequestMapping(value = "/updateWorker.do",method = RequestMethod.POST )
-	public ModelAndView updateWorker(@RequestParam Map map,CalcSalary salary) throws Exception{
+	public ModelAndView updateWorker(@RequestParam Map<String,Object> map, CalcSalary salary) throws Exception{
 		System.out.println("/updateWorker.do 도달");
 		
 		System.out.println(map.get("user_no"));
@@ -261,14 +261,33 @@ public class LoginController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:main.do");
-
 		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap();
+		Map<String, Object> maps=new HashMap<String, Object>();
 		maps.put("salary", salaryMap);
 		maps.put("map", map);
 		scheduleService.updateSchedule(maps);
 		userService.updateUser(map);
 
+		return mav;
+	}
+	@RequestMapping(value = "/updateWorkerUser.do",method = RequestMethod.POST )
+	public ModelAndView updateWorkerUser(@RequestParam Map<String,Object> map) throws Exception{
+		System.out.println("/updateWorkerUser.do 도달");
+		
+		System.out.println(map.get("user_no"));
+		System.out.println(map.get("user_id"));
+		System.out.println(map.get("pwd"));
+		System.out.println(map.get("name"));
+		System.out.println(map.get("phone"));
+		System.out.println(map.get("gender"));
+		System.out.println(map.get("age"));
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:main.do");
+		Map<String, Object> maps=new HashMap<String, Object>();
+		maps.put("map", map);
+		userService.updateUser(map);
+		
 		return mav;
 	}
 	@RequestMapping(value = "/updateWorkerForm.do",method = RequestMethod.GET )
@@ -300,11 +319,11 @@ public class LoginController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/updateWorkerOnlyUserForm.do" , method = RequestMethod.GET)
-	public ModelAndView updateWorkerOnlyUserForm(@RequestParam int user_no) throws Exception {
+	@RequestMapping(value = "/updateWorkerUserForm.do" , method = RequestMethod.GET)
+	public ModelAndView updateWorkerUserForm(@RequestParam int user_no) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("updateWorkerOnlyUserForm");
+		mav.setViewName("updateWorkerUserForm");
 		
 		UserVO userVO = userService.getUserByUser_no(user_no);
 		mav.addObject("userVO", userVO);
@@ -325,13 +344,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/updateSchedule.do" , method = RequestMethod.POST)
-	public ModelAndView updateSchedule(@RequestParam Map map ,CalcSalary salary) throws Exception {
+	public ModelAndView updateSchedule(@RequestParam Map<String, Object> map ,CalcSalary salary) throws Exception {
 		
 		System.out.println("/updateSchedule.do 도달");
 		ModelAndView mav = new ModelAndView();
 		
 		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap();
+		Map<String, Object> maps=new HashMap<String, Object>();
 		maps.put("salary", salaryMap);
 		maps.put("map", map);
 		

@@ -10,33 +10,14 @@
 <link href="css_design/header_design.css" rel="stylesheet">
 <link href="css_design/insert_design.css" rel="stylesheet">
 </head>
-<style>
-.aTag{
-color: white; 
-text-decoration: none;
-}
-</style>
+
 <body>
-<%-- 	<header>
-	<nav>
-			<ul>
-				<li><a href="${contextPath }/main.do" class="bar">메인</a></li>
-				<li><a href="${contextPath }/insertWorkerForm.do" class="bar">근무자 등록</a></li>
-				<li><a href="${contextPath }/insertScheduleForm.do" class="bar">근무시간 등록</a></li>
-				<li><a href="${contextPath }/listForm.do" class="bar">리스트</a></li>
-				<li><a href="#" class="bar">지급 내역서</a></li>
-				<li><a href="${contextPath }/settingForm.do" class="bar">설정</a></li>
-				<li><a href="#" class="bar">로그아웃</a></li>
-			</ul>
-	</nav>
-	</header> --%>
-	
 	<jsp:include page="nav.jsp"></jsp:include>
 
 <div class="insert_container">
-	<h3>근무자 리스트</h3>
+	<h1>근무자 리스트</h1>
 	<form action="getScheduleList.do" method="post">
-		<table border="1">
+		<table border="1" class="table">
 					<tr>
 						<th width="200">근무자 번호</th>
 						<th width="200"> 이름 </th>
@@ -49,10 +30,10 @@ text-decoration: none;
 						<c:choose>
 							<c:when test="${grade == 0 }">
 							<tr>
-								<td>${userList.user_no }</td>
+								<td class="user_no_td">${userList.user_no }</td>
 								<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
 								<td>${userList.phone}</td>
-								<td>${userList.salary }</td>
+								<td>${userList.salary }원</td>
 								<td> <a href="javascript:void(0);"  onclick="updateSchedule('${userList.user_no }','${userList.name}');" class="aTag">근무일 조정</a> </td>
 								<td> <a href="javascript:void(0);" onclick="deleteUser('${userList.user_no }');" class="aTag">삭제</a> </td>		
 							</tr>					
@@ -64,7 +45,7 @@ text-decoration: none;
 											<td>${userList.user_no }</td>
 											<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
 											<td>${userList.phone}</td>
-											<td>${userList.salary }</td>
+											<td>${userList.salary }원</td>
 											<td> 근무일 조정 </td>
 											<td> 삭제 </td>			
 										</tr>											
@@ -74,7 +55,7 @@ text-decoration: none;
 											<td>${userList.user_no }</td>
 											<td> ${userList.name} </td>
 											<td>${userList.phone}</td>
-											<td>${usertList.salary }</td>
+											<td>${usertList.salary }원</td>
 											<td>근무일 조정 </td>
 											<td>삭제 </td>		
 										</tr>	
@@ -84,6 +65,9 @@ text-decoration: none;
 						</c:choose>		
 					</c:forEach>
 					</table>
+					<footer class="foot">
+					<a href="javascript:void(window.open('https://www.alba.co.kr/rsc/inc/common/Calculator.asp', '급여 계산기','width=800, height=600'))" class="bar">급여 계산기</a>
+					</footer>
 	</form>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
@@ -93,7 +77,7 @@ text-decoration: none;
 function updateUser(user_no) {
 	 
 	if(confirm('수정하시겠습니까?')){
-		location.href = "${contextPath}/updateWorkerOnlyUserForm.do?user_no="+user_no;
+		location.href = "${contextPath}/updateWorkerUserForm.do?user_no="+user_no;
 	}
 }
 function deleteUser(user_no) {

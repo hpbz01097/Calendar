@@ -36,6 +36,7 @@ ul li {
 	border-left: double;
 	border-right: double;
 	border-bottom: double;
+	text-align: center;
 }
 
 .logo {
@@ -58,21 +59,11 @@ a {
 
 a:hover {
 	cursor: pointer;
+	text-decoration: underline;
 }
 
 inputBtn:hover {
 	cursor: pointer;
-}
-
-.bottom_container {
-	overflow: hidden;
-	margin: 0 auto;
-	padding: 20px;
-	display: flex;
-	width: 720px;
-	justify-content: center;
-	color: black;
-	align-content: stretch;
 }
 
 ul {

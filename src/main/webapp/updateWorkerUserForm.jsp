@@ -11,26 +11,12 @@
 <link href="css_design/insert_design.css" rel="stylesheet">
 </head>
 <body>
-<%-- 	<header>
-	<nav>
-			<ul>
-				<li><a href="${contextPath }/main.do" class="bar">메인</a></li>
-				<li><a href="${contextPath }/insertWorkerForm.do" class="bar">근무자 등록</a></li>
-				<li><a href="${contextPath }/insertScheduleForm.do" class="bar">근무시간 등록</a></li>
-				<li><a href="${contextPath }/listForm.do" class="bar">리스트</a></li>
-				<li><a href="#" class="bar">지급 내역서</a></li>
-				<li><a href="${contextPath }/settingForm.do" class="bar">설정</a></li>
-				<li><a href="#" class="bar">로그아웃</a></li>
-			</ul>
-	</nav>
-	</header> --%>
-	
+
 	<jsp:include page="nav.jsp"></jsp:include>
 	
 	<div class="insert_container">
-		<h3>근무자 수정</h3>
-	<form action="updateWorker.do" method="post">
-	<%-- <c:forEach var="schedule" items="${userVO}"> --%>
+		<h1>근무자 수정</h1>
+	<form action="updateWorkerUser.do" method="post">
 	<table>
 		<tr>
 			<td>근무자번호</td>
@@ -64,11 +50,12 @@
 		</tr>
 
 	</table>
-	<input type="submit" value="등록" class="inputBtn">
-<%-- 	</c:forEach> --%>
+		<input type="submit" value="등록" class="inputBtn">
+		<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
+	
 </body>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -87,5 +74,10 @@ $(function(){
 	
 });
 
+function cancel() {
+	if(confirm('작성을 취소하시겠습니까?')){
+		location.href = "${contextPath}/main.do";
+	}
+}	
 </script>
 </html>

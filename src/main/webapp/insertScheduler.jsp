@@ -14,7 +14,7 @@
 	<jsp:include page="nav.jsp"></jsp:include>
 	
 	<div class="insert_container">
-		<h3>근무시간 등록</h3>
+		<h1>근무시간 등록</h1>
 	<form action="insertSchedule.do" method="post">
 	<table>
 		<tr>
@@ -42,31 +42,18 @@
 			<input type="date" id="work_end_date" name="work_end_date"></td>
 
 		</tr>
-<!-- <!-- 		<tr>
-		<td>근무요일
-		<td colspan="7">
-			월<input type="checkbox" >
-			화<input type="checkbox">
-			수<input type="checkbox">
-			목<input type="checkbox">
-			금<input type="checkbox">
-			토<input type="checkbox">
-			일<input type="checkbox">
-		</tr>
-		<tr>
-			<td>옵션</td>
-			<td colspan="2"><select id="work_day_option" style="width: 200px;">
-					<option id="0">없음</option>
-					<option id="0">월,수,금</option>
-					<option id="0">화,목</option>
-					<option id="0">토,일</option>
-			</select></td>
-		</tr> --> 
-
 	</table>
 	<input type="submit" value="등록" class="inputBtn">
+	<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
+<script type="text/javascript">
+function cancel() {
+	if(confirm('작성을 취소하시겠습니까?')){
+		location.href = "${contextPath}/main.do";
+	}
+}	
+</script>
 </body>
 </html>

@@ -10,12 +10,6 @@
 <link href="css_design/header_design.css" rel="stylesheet">
 <link href="css_design/insert_design.css" rel="stylesheet">
 </head>
-<style>
-.aTag{
-color: white; 
-text-decoration: none;
-}
-</style>
 <body>
 <%-- 	<header>
 	<nav>
@@ -34,14 +28,13 @@ text-decoration: none;
 	<jsp:include page="nav.jsp"></jsp:include>
 
 <div class="insert_container">
-	<h3>설정</h3>
+	<h1>설정</h1>
 	<form action="getScheduleList.do" method="post">
-		<table border="1">
+		<table border="1" class="table">
 					<tr>
 						<th width="200">근무자 번호</th>
 						<th width="200"> 이름 </th>
 						<th width="200">전화번호</th>
-						<th width="200">월급</th>
 						<th width="200">근무일 조정</th>
 						<th width="100">삭제</th>
 					</tr>
@@ -52,7 +45,6 @@ text-decoration: none;
 								<td>${userList.user_no }</td>
 								<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
 								<td>${userList.phone}</td>
-								<td>${usertList.salary }</td>
 								<td> <a href="javascript:void(0);" onclick="updateSchedule('${userList.user_no }','${userList.name}');" class="aTag">근무일 조정</a> </td>
 								<td> <a href="javascript:void(0);" onclick="deleteUser('${userList.user_no }');" class="aTag">삭제</a> </td>		
 							</tr>					
@@ -62,7 +54,6 @@ text-decoration: none;
 								<td>${userList.user_no }</td>
 								<td> ${userList.name} </td>
 								<td>${userList.phone}</td>
-								<td>${usertList.salary }</td>
 								<td>근무일 조정 </td>
 								<td>삭제 </td>		
 							</tr>	
@@ -79,7 +70,7 @@ text-decoration: none;
 function updateUser(user_no) {
 	 
 	if(confirm('수정하시겠습니까?')){
-		location.href = "${contextPath}/updateWorkerOnlyUserForm.do?user_no="+user_no;
+		location.href = "${contextPath}/updateWorkerUserForm.do?user_no="+user_no;
 	}
 }
 function deleteUser(user_no) {
@@ -91,7 +82,7 @@ function deleteUser(user_no) {
 function updateSchedule(user_no,user_name) {
 	 
 	if(confirm('근무일을 조정하시겠습니까?')){
-		location.href = "${contextPath}/updateSchedule.do?user_no="+user_no+"&user_name="+user_name;
+		location.href = "${contextPath}/main2.do?user_no="+user_no+"&user_name="+user_name;
 	}
 }
 

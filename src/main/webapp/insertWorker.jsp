@@ -11,24 +11,10 @@
 <link href="css_design/insert_design.css" rel="stylesheet">
 </head>
 <body>
-<%-- 	<header>
-	<nav>
-			<ul>
-				<li><a href="${contextPath }/main.do" class="bar">메인</a></li>
-				<li><a href="${contextPath }/insertWorkerForm.do" class="bar">근무자 등록</a></li>
-				<li><a href="${contextPath }/insertScheduleForm.do" class="bar">근무시간 등록</a></li>
-				<li><a href="${contextPath }/listForm.do" class="bar">리스트</a></li>
-				<li><a href="#" class="bar">지급 내역서</a></li>
-				<li><a href="${contextPath }/settingForm.do" class="bar">설정</a></li>
-				<li><a href="#" class="bar">로그아웃</a></li>
-			</ul>
-	</nav>
-	</header> --%>
-	
 	<jsp:include page="nav.jsp"></jsp:include>
 	
 	<div class="insert_container">
-		<h3>근무자 등록</h3>
+		<h1>근무자 등록</h1>
 	<form action="insertWorker.do" method="post">
 	<table>
 		<tr>
@@ -57,9 +43,17 @@
 		</tr>
 
 	</table>
-	<input type="submit" value="등록" class="inputBtn">
+		<input type="submit" value="등록" class="inputBtn">
+		<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>
+<script type="text/javascript">
+function cancel() {
+	if(confirm('작성을 취소하시겠습니까?')){
+		location.href = "${contextPath}/main.do";
+	}
+}	
+</script>
 </body>
 </html>
