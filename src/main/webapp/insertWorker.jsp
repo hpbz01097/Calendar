@@ -24,12 +24,12 @@
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" id="name" name="name"></td>
+			<td><input type="text" id="name" name="name" required="required"></td>
 			<td><input type="hidden" id="pwd" name="pwd"></td>
 		</tr>
 		<tr>
 			<td>핸드폰번호</td>
-			<td><input type="text" id="phone" name="phone" placeholder="숫자만 입력해주세요">
+			<td><input type="text" id="phone" name="phone" placeholder="숫자만 입력해주세요" required="required">
 			</td>
 		</tr>
 		<tr>
@@ -39,7 +39,7 @@
 		</tr>
 		<tr>
 			<td>나이</td>
-			<td><input type="text" id="age" name="age"></td>
+			<td><input type="text" id="age" name="age" required="required"></td>
 		</tr>
 
 	</table>

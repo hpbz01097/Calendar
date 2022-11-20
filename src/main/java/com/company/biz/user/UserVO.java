@@ -10,7 +10,7 @@ public class UserVO {
 	private int gender;
 	private int age; 
 	private int grade;
-	private int salary;
+	private String salary ;
 	
 	
 	public int getUser_no() {
@@ -61,10 +61,10 @@ public class UserVO {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	public int getSalary() {
+	public String getSalary() {
 		return salary;
 	}
-	public void setSalary(int salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 	

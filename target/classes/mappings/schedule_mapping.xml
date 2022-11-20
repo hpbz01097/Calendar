@@ -43,17 +43,17 @@
 		       B.work_end_date, 
 		       B.work_start_time, 
 		       B.work_end_time 
-		from PAYSLIP_USER A, SCHEDULE B 
+		from PAYROLL_USER A, PAYROLL_SCHEDULE B 
 		WHERE A.user_no = B.user_no
 		order by schedule_no desc;
 	</select>
 	
 	<select id="getSchedule" resultType="schedule">
-		select max(User_NO) as user_no from SCHEDULE
+		select max(User_NO) as user_no from PAYROLL_SCHEDULE
 	</select>
 	
 	<select id="getMaxSchedule_no" resultType="int">
-		select max(schedule_no) as schedule_no from SCHEDULE
+		select max(schedule_no) as schedule_no from PAYROLL_SCHEDULE
 	</select>
 	
 	<select id="getScheduleListByUser_no" parameterType="int" resultMap="userScheduleResult">
@@ -70,18 +70,18 @@
 		       B.work_end_date, 
 		       B.work_start_time, 
 		       B.work_end_time 
-		from PAYSLIP_USER A, SCHEDULE B 
+		from PAYROLL_USER A, PAYROLL_SCHEDULE B 
 		WHERE A.user_no = B.user_no and B.user_no = #{user_no}
 		order by schedule_no desc;
 	</select>
 	
 	<insert id="insertSchedule" parameterType="java.util.Map">
-		insert into SCHEDULE values (#{map.user_no} , #{map.schedule_no}, #{map.name} , #{map.work_start_time}, #{map.work_end_time}, #{map.work_start_date}, #{map.work_end_date}, #{salary.salary})
+		insert into PAYROLL_SCHEDULE values (#{map.user_no} , #{map.schedule_no}, #{map.name} , #{map.work_start_time}, #{map.work_end_time}, #{map.work_start_date}, #{map.work_end_date}, #{salary.salary})
 	</insert>
 	
 		<update id="updateSchedule" parameterType="java.util.Map">
 			<![CDATA[
-			update SCHEDULE set name = #{map.name},
+			update PAYROLL_SCHEDULE set name = #{map.name},
 			work_start_date = #{map.work_start_date} , work_end_date = #{map.work_end_date} ,
 			work_start_time = #{map.work_start_time} , work_end_time = #{map.work_end_time} ,
 			salary = #{salary.salary}

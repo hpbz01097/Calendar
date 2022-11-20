@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" ></c:set>
 <!DOCTYPE html>
 <html>
@@ -32,8 +33,9 @@
 							<tr>
 								<td class="user_no_td">${userList.user_no }</td>
 								<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
-								<td>${userList.phone}</td>
-								<td>${userList.salary }원</td>
+								<c:set var="tel" value="${userList.phone }" />
+								<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
+								<td>${userList.salary}원</td>
 								<td> <a href="javascript:void(0);"  onclick="updateSchedule('${userList.user_no }','${userList.name}');" class="aTag">근무일 조정</a> </td>
 								<td> <a href="javascript:void(0);" onclick="deleteUser('${userList.user_no }');" class="aTag">삭제</a> </td>		
 							</tr>					
@@ -44,7 +46,7 @@
 										<tr>
 											<td>${userList.user_no }</td>
 											<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
-											<td>${userList.phone}</td>
+											<td>${userList.phone} </td>
 											<td>${userList.salary }원</td>
 											<td> 근무일 조정 </td>
 											<td> 삭제 </td>			
@@ -55,7 +57,7 @@
 											<td>${userList.user_no }</td>
 											<td> ${userList.name} </td>
 											<td>${userList.phone}</td>
-											<td>${usertList.salary }원</td>
+											<td> - </td>
 											<td>근무일 조정 </td>
 											<td>삭제 </td>		
 										</tr>	

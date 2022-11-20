@@ -19,27 +19,23 @@
 	<table>
 		<tr>
 			<td>근무자 번호</td>
-			<td><input type="text" id="user_no" name="user_no"></td>
-		</tr>
-		<tr>
-			<td>근무번호</td>
-			<td><input type="text" id="schedule_no" name="schedule_no" value="${maxSchedule_no + 1}" readonly="readonly"></td>
-	<!-- 		<td><input type="hidden" id="user_id" name="user_id"></td> -->
+			<td><input type="text" id="user_no" name="user_no" required="required"></td>
+			<td><input type="hidden" id="schedule_no" name="schedule_no" value="${maxSchedule_no + 1}" readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" id="name" name="name"></td>
+			<td><input type="text" id="name" name="name" required="required"></td>
 <!-- 			<td><input type="hidden" id="pwd" name="pwd"></td>-->
 		</tr>
 		<tr>
 			<td>근무시간</td>
-			<td><input type="time" id="work_start_time" name="work_start_time"> <input
-				type="time" id="work_end_time" name="work_end_time"></td>
+			<td><input type="time" id="work_start_time" name="work_start_time" required="required"> <input
+				type="time" id="work_end_time" name="work_end_time" required="required"></td>
 		</tr>
 		<tr>
 			<td>계약기간</td>
-			<td colspan="2"><input type="date" id="work_start_date" name="work_start_date">
-			<input type="date" id="work_end_date" name="work_end_date"></td>
+			<td colspan="2"><input type="date" id="work_start_date" name="work_start_date" required="required">
+			<input type="date" id="work_end_date" name="work_end_date" required="required"></td>
 
 		</tr>
 	</table>
