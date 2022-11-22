@@ -14,11 +14,11 @@
 				</c:if>
 					<li><a href="${contextPath }/listForm.do" class="bar">리스트 / 급여</a></li>
 				<c:if test="${grade == 0 }">
-					<li><a href="${contextPath }/settingForm.do" class="bar">설정</a></li>
+					<li><a href="${contextPath }/settingForm.do?user_no=${user_no}" class="bar">설정</a></li>
 				</c:if>
 				</ul>
 			<div class="user_name" id="user_name">
-						<p> <a href="javascript:void(0);" onclick="workerInfo(${user_no})"> ${user_id } </a> 님 </p>
+						<p> ${user_id } 님 </p>
 						<button type="button" onclick="logout(${user_no});">로그아웃</button>
 			</div>
 	</nav>
@@ -37,14 +37,3 @@
 		
 	
 	</script>
-
-
-
-
-
-
-
-
-
-
-

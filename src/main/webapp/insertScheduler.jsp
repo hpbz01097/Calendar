@@ -29,13 +29,13 @@
 		</tr>
 		<tr>
 			<td>근무시간</td>
-			<td><input type="time" id="work_start_time" name="work_start_time" required="required"> <input
-				type="time" id="work_end_time" name="work_end_time" required="required"></td>
+			<td><input type="time" id="work_start_time" name="work_start_time" value="${scheduleList.work_start_time }" required="required"> <input
+				type="time" id="work_end_time" name="work_end_time" value="${scheduleList.work_end_time}" required="required"></td>
 		</tr>
 		<tr>
 			<td>계약기간</td>
-			<td colspan="2"><input type="date" id="work_start_date" name="work_start_date" required="required">
-			<input type="date" id="work_end_date" name="work_end_date" required="required"></td>
+			<td colspan="2"><input type="date" id="work_start_date" name="work_start_date" value="${scheduleList.work_start_date }" required="required">
+			<input type="date" id="work_end_date" name="work_end_date" required="required" value="${scheduleList.work_end_date }"></td>
 
 		</tr>
 	</table>

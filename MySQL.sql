@@ -56,7 +56,7 @@ delete from PAYROLL_SCHEDULE where PAYROLL_SCHEDULE_no = 9
 select u.user_no , u.name , u.phone , u.grade,s.salary from PAYROLL_USER u,PAYROLL_SCHEDULE s
 where u.user_no=s.user_no
 
-insert into PAYROLL_SCHEDULE values (3, 1,'테스트','10:30:00', '18:30:00' ,'2022-11-01','2022-11-01',0);
+insert into PAYROLL_SCHEDULE values (3, 1,'테스트','10:30:00', '18:30:00' ,'2022-11-01','2022-11-01',11000);
 insert into PAYROLL_SCHEDULE values (2, 2,'신명문','09:00:00', '18:00:00','2022-11-04','2022-11-04',0);
 insert into PAYROLL_SCHEDULE values (3, 3,'테스트','10:30:00', '18:30:00','2022-11-07','2022-11-07',0);
 insert into PAYROLL_SCHEDULE values (2, 4,'신명문','10:30:00', '18:30:00','2022-11-07','2022-11-07',0);

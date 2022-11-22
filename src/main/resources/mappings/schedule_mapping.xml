@@ -39,10 +39,10 @@
 		select A.user_no, 
 		         A.name, 
 		       B.schedule_no,  
-		       B.work_start_date, 
-		       B.work_end_date, 
-		       B.work_start_time, 
-		       B.work_end_time 
+		       B.work_start_date as work_start_date, 
+		       B.work_end_date as work_end_date, 
+		       B.work_start_time as work_start_time, 
+		       B.work_end_time as work_end_time 
 		from PAYROLL_USER A, PAYROLL_SCHEDULE B 
 		WHERE A.user_no = B.user_no
 		order by schedule_no desc;
@@ -53,7 +53,7 @@
 	</select>
 	
 	<select id="getMaxSchedule_no" resultType="int">
-		select max(schedule_no) as schedule_no from PAYROLL_SCHEDULE
+		select ifnull(max(schedule_no),1) as schedule_no from PAYROLL_SCHEDULE
 	</select>
 	
 	<select id="getScheduleListByUser_no" parameterType="int" resultMap="userScheduleResult">

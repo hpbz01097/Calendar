@@ -47,7 +47,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/signUp.do" , method = RequestMethod.POST)
-	public ResponseEntity singUp(HttpServletRequest req, HttpServletResponse resp , @ModelAttribute UserVO userVO) throws Exception {
+	public ResponseEntity<String> singUp(HttpServletRequest req, HttpServletResponse resp , @ModelAttribute UserVO userVO) throws Exception {
 		
 		System.out.println("/signUp.do 도달");
 		int user_no =  userService.getMaxUser_no();
@@ -77,7 +77,7 @@ public class LoginController {
 		message = message + " location.href='"+req.getContextPath()+"' ";
 		message = message + " </script> ";
 		
-		return new ResponseEntity(message , responseHeaders , HttpStatus.OK);
+		return new ResponseEntity<String>(message , responseHeaders , HttpStatus.OK);
 		
 	}
 	
@@ -149,7 +149,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/findPWD.do" , method = RequestMethod.POST)
-	public ModelAndView findPWD(HttpServletRequest req , HttpServletResponse resp , @RequestParam Map map) throws Exception {
+	public ModelAndView findPWD(HttpServletRequest req , HttpServletResponse resp , @RequestParam Map<String, Object> map) throws Exception {
 		
 		System.out.println("/findPWD.do");
 		
@@ -227,10 +227,10 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
-	public ModelAndView insertSchedule(@RequestParam Map map,CalcSalary salary) throws Exception{
+	public ModelAndView insertSchedule(@RequestParam Map<String, Object> map,CalcSalary salary) throws Exception{
 		
 		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap();
+		Map<String, Object> maps=new HashMap<String, Object>();
 		maps.put("salary", salaryMap);
 		maps.put("map", map);
 		scheduleService.insertSchedule(maps);
@@ -310,7 +310,6 @@ public class LoginController {
 			
 			
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
@@ -358,6 +357,7 @@ public class LoginController {
 		scheduleService.updateSchedule(maps);
 		
 		String user_no  = (String) map.get("user_no");
+		@SuppressWarnings("unused")
 		String user_name =  (String) map.get("user_name");
 		
 		System.out.println(map.get("schedule_no"));
@@ -386,7 +386,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/deleteWorker.do" , method = RequestMethod.GET)
-	public ResponseEntity deleteUser(@RequestParam int user_no , HttpServletRequest req , HttpServletResponse resp) throws Exception {
+	public ResponseEntity<String> deleteUser(@RequestParam int user_no , HttpServletRequest req , HttpServletResponse resp) throws Exception {
 		
 		System.out.println("/deleteWorker.do 이동 완료");
 		
@@ -409,23 +409,26 @@ public class LoginController {
 		
 		System.out.println(message);
 		
-		return new ResponseEntity(message,responseHeaders,HttpStatus.OK);
+		return new ResponseEntity<String>(message,responseHeaders,HttpStatus.OK);
 		
 	}
 	
 	@RequestMapping(value = "/settingForm.do" , method = RequestMethod.GET)
-	public ModelAndView settingForm(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+	public ModelAndView settingForm(HttpServletRequest req, HttpServletResponse resp , @RequestParam int user_no) throws Exception {
 		
+		UserVO userVO = userService.getUserByUser_no(user_no);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("settingForm");
 		
 		mav.addObject("adminList", userService.getAdmin());
+		mav.addObject("userVO", userVO);
+		
 		
 		return mav;
 	}
 	
 	@RequestMapping(value = "/logout.do" , method = RequestMethod.GET)
-	public ResponseEntity logout(HttpServletRequest req, HttpServletResponse resp, @RequestParam int user_no) throws Exception {
+	public ResponseEntity<String> logout(HttpServletRequest req, HttpServletResponse resp, @RequestParam int user_no) throws Exception {
 		
 		System.out.println("/logout.do 도달");
 		
@@ -451,7 +454,7 @@ public class LoginController {
 		
 		System.out.println(message);
 		
-		return new ResponseEntity(message,responseHeaders,HttpStatus.OK);
+		return new ResponseEntity<String>(message,responseHeaders,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/workerInfo.do" , method = RequestMethod.GET)

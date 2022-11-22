@@ -46,7 +46,8 @@
 										<tr>
 											<td>${userList.user_no }</td>
 											<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
-											<td>${userList.phone} </td>
+											<c:set var="tel" value="${userList.phone }" />
+											<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
 											<td>${userList.salary }원</td>
 											<td> 근무일 조정 </td>
 											<td> 삭제 </td>			
@@ -56,7 +57,8 @@
 										<tr>
 											<td>${userList.user_no }</td>
 											<td> ${userList.name} </td>
-											<td>${userList.phone}</td>
+											<c:set var="tel" value="${userList.phone }" />
+											<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
 											<td> - </td>
 											<td>근무일 조정 </td>
 											<td>삭제 </td>		

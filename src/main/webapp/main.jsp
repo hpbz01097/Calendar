@@ -60,7 +60,7 @@
 //          	var title=location.href='insertWorker.jsp#'	+eventTarget.attr("data-date");
          	var title;
          	<c:forEach var="schedule" items="${scheduleList}">
-         	location.href='${contextPath }/insertScheduleForm.do#$${schedule.work_start_date}&${schedule.work_end_date}';
+         	location.href='${contextPath }/insertScheduleForm.do#${schedule.work_start_date}&${schedule.work_end_date}';
          	</c:forEach>
         	//안해도 될거같음 주소만 옮기고 insert에서 시간을 직접 주기
           if (title) {
@@ -78,7 +78,6 @@
         	<c:forEach var="schedule" items="${scheduleList}">
         	  {
                 title: "${schedule.name} - " + "${schedule.work_start_time}".substring(0,2) +"시 ~ "+ "${schedule.work_end_time}".substring(0,2)+"시",
-/*                 url : 'updateWorker.jsp#${schedule.name}', */
                 url : '${contextPath}/updateWorkerForm.do?user_no=${schedule.user_no}&work_start_date=${schedule.work_start_date}&work_end_date=${schedule.work_end_date}&work_start_time=${schedule.work_start_time}&work_end_time=${schedule.work_end_time}&schedule_no=${schedule.schedule_no}',
                 start: "${schedule.work_start_date}T${schedule.work_start_time}",
                 end: "${schedule.work_end_date}T${schedule.work_end_time}",
@@ -87,7 +86,6 @@
                 textColor : "black",
               }, 
         	</c:forEach>
-
         ],
         eventColor:"yellow"
       });

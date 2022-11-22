@@ -11,80 +11,71 @@
 <link href="css_design/insert_design.css" rel="stylesheet">
 </head>
 <body>
-<%-- 	<header>
-	<nav>
-			<ul>
-				<li><a href="${contextPath }/main.do" class="bar">메인</a></li>
-				<li><a href="${contextPath }/insertWorkerForm.do" class="bar">근무자 등록</a></li>
-				<li><a href="${contextPath }/insertScheduleForm.do" class="bar">근무시간 등록</a></li>
-				<li><a href="${contextPath }/listForm.do" class="bar">리스트</a></li>
-				<li><a href="#" class="bar">지급 내역서</a></li>
-				<li><a href="${contextPath }/settingForm.do" class="bar">설정</a></li>
-				<li><a href="#" class="bar">로그아웃</a></li>
-			</ul>
-	</nav>
-	</header> --%>
-	
 	<jsp:include page="nav.jsp"></jsp:include>
-
 <div class="insert_container">
 	<h1>설정</h1>
-	<form action="getScheduleList.do" method="post">
-		<table border="1" class="table">
-					<tr>
-						<th width="200">근무자 번호</th>
-						<th width="200"> 이름 </th>
-						<th width="200">전화번호</th>
-						<th width="200">근무일 조정</th>
-						<th width="100">삭제</th>
-					</tr>
-					<c:forEach var="userList" items="${adminList }">
-						<c:choose>
-							<c:when test="${grade == 0 }">
-							<tr>
-								<td>${userList.user_no }</td>
-								<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
-								<td>${userList.phone}</td>
-								<td> <a href="javascript:void(0);" onclick="updateSchedule('${userList.user_no }','${userList.name}');" class="aTag">근무일 조정</a> </td>
-								<td> <a href="javascript:void(0);" onclick="deleteUser('${userList.user_no }');" class="aTag">삭제</a> </td>		
-							</tr>					
-							</c:when>
-							<c:otherwise>
-							<tr>
-								<td>${userList.user_no }</td>
-								<td> ${userList.name} </td>
-								<td>${userList.phone}</td>
-								<td>근무일 조정 </td>
-								<td>삭제 </td>		
-							</tr>	
-							</c:otherwise>
-						</c:choose>			
-					</c:forEach>
-					</table>
+	<form action="updateWorkerUser.do" method="post">
+	<table>
+		<tr>
+			<td>근무자번호</td>
+			<td><input type="text" id="user_no" name="user_no" value="${userVO.user_no}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>ID</td>
+			<td><input type="text" id="user_id" name="user_id" value="${userVO.user_id}"></td>
+		</tr>
+		<tr>
+			<td>PASSWORD</td>
+			<td><input type="text" id="pwd" name="pwd" value="${userVO.pwd}"></td>
+		</tr>
+		<tr>
+			<td>이름</td>
+			<td><input type="text" id="name" name="name" value="${userVO.name}" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>핸드폰번호</td>
+			<td><input type="text" id="phone" name="phone" value="${userVO.phone }" readonly="readonly">
+			</td>
+		</tr>
+		<tr>
+			<td>성별</td>
+			<td><input type="radio" name="gender" value="${userVO.gender}" id="genderMan">남 <input
+				type="radio" name="gender" value="${userVO.gender }" id="genderWoman">여</td>
+		</tr>
+		<tr>
+			<td>나이</td>
+			<td><input type="text" name="age" id="age" value="${userVO.age}" readonly="readonly"></td>
+		</tr>
+
+	</table>
+		<input type="submit" value="등록" class="inputBtn">
+		<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 
-function updateUser(user_no) {
-	 
-	if(confirm('수정하시겠습니까?')){
-		location.href = "${contextPath}/updateWorkerUserForm.do?user_no="+user_no;
-	}
-}
-function deleteUser(user_no) {
-	 
-	if(confirm('삭제하시겠습니까?')){
-		location.href = "${contextPath}/deleteWorker.do?user_no="+user_no;
-	}
-}
-function updateSchedule(user_no,user_name) {
-	 
-	if(confirm('근무일을 조정하시겠습니까?')){
-		location.href = "${contextPath}/main2.do?user_no="+user_no+"&user_name="+user_name;
-	}
-}
+$(function(){
+	
+	let genderMan = $("#genderMan");
+	let genderWoman = $("#genderWoman");
+	
+/* 	alert(genderMan.val()); */
+ 	
+ 	if(genderMan.val() == 0){
+ 		genderMan.attr("checked" , true);
+ 	}else{
+ 		genderWoman.attr("checked" , true);
+ 	}
+	
+});
 
+function cancel() {
+	if(confirm('작성을 취소하시겠습니까?')){
+		location.href = "${contextPath}/main.do";
+	}
+}	
 </script>
 </html>
