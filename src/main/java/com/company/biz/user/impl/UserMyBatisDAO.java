@@ -2,11 +2,9 @@ package com.company.biz.user.impl;
 
 import java.util.List;
 import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.company.biz.user.UserVO;
 
 @Repository
@@ -19,10 +17,6 @@ public class UserMyBatisDAO {
 	int count = 0;
 	List<UserVO> userList;
 	
-//	public List<UserVO> getUserList() throws Exception {
-//		s
-//	}
-//	
 	public int selectPhoneOverLap(String phone) throws Exception {
 		count = mybatis.selectOne("UserDAO.selectPhoneOverLap", phone);
 		return count;
@@ -33,11 +27,10 @@ public class UserMyBatisDAO {
 		return user_id;
 	}
 	
-	public String selectPWDbyPhoneAndUser_id(Map map) throws Exception {
+	public String selectPWDbyPhoneAndUser_id(Map<String,Object> map) throws Exception {
 		String pwd = mybatis.selectOne("UserDAO.selectPWDbyPhoneAndUser_id", map);
 		return pwd;
 	}
-
 	public int addAdmin(UserVO vo) {
 		count = mybatis.insert("UserDAO.addAdmin", vo);
 		return count;
@@ -52,9 +45,8 @@ public class UserMyBatisDAO {
 		count = mybatis.selectOne("UserDAO.getMaxUser_no");
 		return count;
 	}
-
-	public void insertWorker(UserVO vo) {
-		mybatis.insert("UserDAO.insertWorker", vo);
+	public void insertUser(UserVO vo) {
+		mybatis.insert("UserDAO.insertUser", vo);
 		
 	}
 	
@@ -67,17 +59,21 @@ public class UserMyBatisDAO {
 		userList = mybatis.selectList("UserDAO.getAdmin");
 		return userList;
 	}
-
-	public void updateUser(Map map) throws Exception {
+	public void updateUser(Map<String,Object> map) throws Exception {
 		mybatis.update("UserDAO.updateUser", map);
 		
 	}
 	
-	public List<UserVO> getUserList() throws Exception {
-		userList = mybatis.selectList("UserDAO.getUserList");
+	public List<Map<String, Object>> getUserList() throws Exception {
+		List<Map<String, Object>> userList = mybatis.selectList("UserDAO.getUserList");
 		return userList;
 	}
-	
+
+	public List<Map<String, Object>> getUserSalary(int user_no){
+		List<Map<String, Object>> userSalaryList = mybatis.selectList("UserDAO.getUserSalary",user_no);
+		return userSalaryList;
+	}
+
 	public int deleteUser(int user_no) throws Exception {
 		count = mybatis.delete("UserDAO.deleteUser", user_no);
 		return count;

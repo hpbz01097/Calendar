@@ -24,7 +24,7 @@
 </head>
 <body>
 
-	<jsp:include page="nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/nav.jsp"></jsp:include>
 	<!-- calendar 태그 -->
 	<div id="calendar-container">
 		<div id="calendar"
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 

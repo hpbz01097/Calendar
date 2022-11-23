@@ -76,32 +76,31 @@
 	</select>
 	
 	<insert id="insertSchedule" parameterType="java.util.Map">
-		insert into PAYROLL_SCHEDULE values (#{map.user_no} , #{map.schedule_no}, #{map.name} , #{map.work_start_time}, #{map.work_end_time}, #{map.work_start_date}, #{map.work_end_date}, #{salary.salary})
+		insert into PAYROLL_SCHEDULE values (#{map.user_no} , #{map.schedule_no}, #{map.name} , #{map.work_start_time}, #{map.work_end_time}, #{map.work_start_date}, #{map.work_end_date},now(),now());
+		insert into PAYROLL_SALARY VALUES (#{map.user_no},#{map.schedule_no}, #{salary.workTime},#{salary.totalWorktime},#{salary.workDay},#{salary.salary},default);
 	</insert>
 	
 		<update id="updateSchedule" parameterType="java.util.Map">
 			<![CDATA[
-			update PAYROLL_SCHEDULE set name = #{map.name},
-			work_start_date = #{map.work_start_date} , work_end_date = #{map.work_end_date} ,
-			work_start_time = #{map.work_start_time} , work_end_time = #{map.work_end_time} ,
-			salary = #{salary.salary}
+			update PAYROLL_SCHEDULE sche,PAYROLL_SALARY sal set sche.name = #{map.name},
+			sche.work_start_date = #{map.work_start_date} , sche.work_end_date = #{map.work_end_date} ,
+			sche.work_start_time = #{map.work_start_time} , sche.work_end_time = #{map.work_end_time} ,
+			sche.update_date = sysdate() ,
+			sal.worktime = #{salary.workTime} , sal.workday = #{salary.workDay} , sal.salary = #{salary.salary} , sal.totalWorktime=#{salary.totalWorktime}
 			]]>
 			<where>
 				<if test="map.user_no != null and map.user_no != '' ">
-					user_no = #{map.user_no}
+					sche.user_no = #{map.user_no}
 				</if>
 				<if test="map.schedule_no != null and map.schedule_no != '' ">
-					and schedule_no = #{map.schedule_no}
+					and sche.schedule_no = #{map.schedule_no}
 				</if>
+					and sche.schedule_no=sal.schedule_no 
 			</where>
 
 		</update>
 		
-		
-		
-	
-<!-- 	<delete id="deleteSchedule" parameterType="int">
+		<!-- 	<delete id="deleteSchedule" parameterType="int">
 		delete from SCHEDULE where user_no = #{user_no}
-	</delete> -->
-	
+		</delete> -->
 </mapper>

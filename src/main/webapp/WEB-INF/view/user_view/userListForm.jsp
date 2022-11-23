@@ -13,9 +13,9 @@
 </head>
 
 <body>
-	<jsp:include page="nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/nav.jsp"></jsp:include>
 
-<div class="insert_container">
+<div class="insert_container" style="width: 1000px;">
 	<h1>근무자 리스트</h1>
 	<form action="getScheduleList.do" method="post">
 		<table border="1" class="table">
@@ -23,7 +23,10 @@
 						<th width="200">근무자 번호</th>
 						<th width="200"> 이름 </th>
 						<th width="200">전화번호</th>
-						<th width="200">월급</th>
+<!-- 						<th width="200">월급</th> -->
+						<th width="200">총지급액</th>
+						<th width="200">총근무일</th>
+						<th width="200">총근무시간</th>
 						<th width="200">근무일 조정</th>
 						<th width="100">삭제</th>
 					</tr>
@@ -36,6 +39,8 @@
 								<c:set var="tel" value="${userList.phone }" />
 								<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
 								<td>${userList.salary}원</td>
+								<td>${userList.workDay}</td>
+								<td>${userList.totalWorktime}</td>
 								<td> <a href="javascript:void(0);"  onclick="updateSchedule('${userList.user_no }','${userList.name}');" class="aTag">근무일 조정</a> </td>
 								<td> <a href="javascript:void(0);" onclick="deleteUser('${userList.user_no }');" class="aTag">삭제</a> </td>		
 							</tr>					
@@ -49,6 +54,8 @@
 											<c:set var="tel" value="${userList.phone }" />
 											<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
 											<td>${userList.salary }원</td>
+											<td>${userList.workDay}</td>
+											<td>${userList.totalWorktime}</td>
 											<td> 근무일 조정 </td>
 											<td> 삭제 </td>			
 										</tr>											
@@ -59,6 +66,8 @@
 											<td> ${userList.name} </td>
 											<c:set var="tel" value="${userList.phone }" />
 											<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
+											<td> - </td>
+											<td> - </td>
 											<td> - </td>
 											<td>근무일 조정 </td>
 											<td>삭제 </td>		
@@ -74,26 +83,26 @@
 					</footer>
 	</form>
 </div>
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/common_view/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 
 function updateUser(user_no) {
 	 
 	if(confirm('수정하시겠습니까?')){
-		location.href = "${contextPath}/updateWorkerUserForm.do?user_no="+user_no;
+		location.href = "${contextPath}/updateUserForm.do?user_no="+user_no;
 	}
 }
 function deleteUser(user_no) {
 	 
 	if(confirm('삭제하시겠습니까?')){
-		location.href = "${contextPath}/deleteWorker.do?user_no="+user_no;
+		location.href = "${contextPath}/deleteUser.do?user_no="+user_no;
 	}
 }
 function updateSchedule(user_no,user_name) {
 	 
 	if(confirm('근무일을 조정하시겠습니까?')){
-		location.href = "${contextPath}/main2.do?user_no="+user_no+"&user_name="+user_name;
+		location.href = "${contextPath}/scheduleListForm.do?user_no="+user_no+"&user_name="+user_name;
 	}
 }
 

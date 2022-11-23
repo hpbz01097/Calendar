@@ -1,7 +1,5 @@
-package com.company.view.user;
+package com.company.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,11 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.company.biz.schedule.ScheduleService;
-import com.company.biz.schedule.ScheduleVO;
-import com.company.biz.schedule.UserScheduleVO;
 import com.company.biz.user.UserService;
 import com.company.biz.user.UserVO;
-import com.company.calculator.CalcSalary;
 
 @RestController
 public class LoginController {
@@ -37,15 +31,16 @@ public class LoginController {
 	
 	UserVO userVO = new UserVO();
 	
+	// 회원가입 Form
 	@RequestMapping(value = "/signUpForm.do" , method = RequestMethod.GET)
 	public ModelAndView signUpForm(HttpServletRequest req , HttpServletResponse resp) throws Exception {
 		System.out.println("/signUpForm.do 도달");
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("signUp");
+		mav.setViewName("login_view/signUpForm");
 		return mav;
-		
 	}
 	
+	// 회원 가입
 	@RequestMapping(value = "/signUp.do" , method = RequestMethod.POST)
 	public ResponseEntity<String> singUp(HttpServletRequest req, HttpServletResponse resp , @ModelAttribute UserVO userVO) throws Exception {
 		
@@ -78,10 +73,63 @@ public class LoginController {
 		message = message + " </script> ";
 		
 		return new ResponseEntity<String>(message , responseHeaders , HttpStatus.OK);
+	}
+
+	// 아이디 찾기 Form
+	@RequestMapping(value = "/findIDForm.do" , method = RequestMethod.GET)
+	public ModelAndView findIDForm(HttpServletRequest req , HttpServletResponse resp) throws Exception {
 		
+		System.out.println("/findIDForm.do");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login_view/findIDForm");
+		
+		return mav;
 	}
 	
-
+	// 아이디 찾기
+	@RequestMapping(value = "/findID.do" , method = RequestMethod.POST)
+	public ModelAndView findID(HttpServletRequest req , HttpServletResponse resp , @RequestParam String phone) throws Exception {
+		
+		System.out.println("/findID.do");
+		
+		String user_id = userService.selectIDbyPhone(phone);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login_view/findIDForm");
+		mav.addObject("user_id", user_id);
+		
+		return mav;
+	}
+	
+	// 비밀번호 찾기 Form
+	@RequestMapping(value = "/findPWDForm.do" , method = RequestMethod.GET)
+	public ModelAndView findPWDForm(HttpServletRequest req , HttpServletResponse resp) throws Exception {
+		
+		System.out.println("/findPWDForm.do");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login_view/findPWDForm");
+		
+		return mav;
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping(value = "/findPWD.do" , method = RequestMethod.POST)
+	public ModelAndView findPWD(HttpServletRequest req , HttpServletResponse resp , @RequestParam Map<String, Object> map) throws Exception {
+		
+		System.out.println("/findPWD.do");
+		
+		String pwd = userService.selectPWDbyPhoneAndUser_id(map);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login_view/findPWDForm");
+		mav.addObject("pwd", pwd);
+		
+		return mav;
+	}
+	
+	// 로그인
 	@RequestMapping(value="/login.do",method = RequestMethod.POST)
 	public ModelAndView login(UserVO vo, HttpSession session , HttpServletRequest req) {
 		System.out.println("로그인 인증 요청." + vo.getUser_id() + "," + vo.getPwd());
@@ -106,327 +154,12 @@ public class LoginController {
 			
 			return mav;
 		} else {
-			mav.setViewName("signUp");
+			mav.setViewName("login_view/signUpForm");
 			return mav;
 		}
-
 	}
 	
-	@RequestMapping(value = "/findIDForm.do" , method = RequestMethod.GET)
-	public ModelAndView findIDForm(HttpServletRequest req , HttpServletResponse resp) throws Exception {
-		
-		System.out.println("/findIDForm.do");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("findIDForm");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/findID.do" , method = RequestMethod.POST)
-	public ModelAndView findID(HttpServletRequest req , HttpServletResponse resp , @RequestParam String phone) throws Exception {
-		
-		System.out.println("/findID.do");
-		
-		String user_id = userService.selectIDbyPhone(phone);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("findIDForm");
-		mav.addObject("user_id", user_id);
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/findPWDForm.do" , method = RequestMethod.GET)
-	public ModelAndView findPWDForm(HttpServletRequest req , HttpServletResponse resp) throws Exception {
-		
-		System.out.println("/findPWDForm.do");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("findPWDForm");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/findPWD.do" , method = RequestMethod.POST)
-	public ModelAndView findPWD(HttpServletRequest req , HttpServletResponse resp , @RequestParam Map<String, Object> map) throws Exception {
-		
-		System.out.println("/findPWD.do");
-		
-		String pwd = userService.selectPWDbyPhoneAndUser_id(map);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("findPWDForm");
-		mav.addObject("pwd", pwd);
-		
-		return mav;
-	}
-	
-	
-	@RequestMapping(value = "/main.do" , method = RequestMethod.GET)
-	public ModelAndView main(HttpServletRequest req) throws Exception {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
-		mav.addObject("scheduleList",scheduleService.getScheduleList());
-		return mav;
-		
-	}
-	@RequestMapping(value = "/main2.do" , method = RequestMethod.GET)
-	public ModelAndView main2(HttpServletRequest req, @RequestParam int user_no) throws Exception {
-		
-		System.out.println("/main2.do 도달");
-		System.out.println(user_no);
-		
-		ModelAndView mav = new ModelAndView();
-		List<UserScheduleVO> userScheduleList = scheduleService.getScheduleListByUser_no(user_no);
-		UserVO userVO = userService.getUserByUser_no(user_no);
-		
-		mav.addObject("scheduleList",userScheduleList);
-		mav.addObject("user_name",userVO.getName());
-		mav.setViewName("main2");
-		return mav;
-		
-	}
-	
-	@RequestMapping("/logout.do")
-	public ModelAndView logout(HttpSession session) {
-		session.invalidate();
-		ModelAndView mav = new ModelAndView("signUp");
-		return mav;
-	}
-
-	@RequestMapping(value = "/insertWorkerForm.do",method = RequestMethod.GET )
-	public ModelAndView insertWorkerForm(Model model) throws Exception{
-		int count = userService.getMaxUser_no();
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("insertWorker");
-		
-		mav.addObject("maxUser_no", count);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/insertWorker.do",method = RequestMethod.POST )
-	public ModelAndView insertWorker(UserVO vo) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:main.do");
-		userService.insertWorker(vo);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/insertScheduleForm.do",method = RequestMethod.GET )
-	public ModelAndView insertScheduleForm() throws Exception{
-		int count = scheduleService.getMaxSchedule_no();
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("insertScheduler");
-		
-		mav.addObject("maxSchedule_no", count);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
-	public ModelAndView insertSchedule(@RequestParam Map<String, Object> map,CalcSalary salary) throws Exception{
-		
-		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("salary", salaryMap);
-		maps.put("map", map);
-		scheduleService.insertSchedule(maps);
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("redirect:main.do");
-
-		return mav;
-	}
-	
-	
-	@RequestMapping(value = "/updateWorker.do",method = RequestMethod.POST )
-	public ModelAndView updateWorker(@RequestParam Map<String,Object> map, CalcSalary salary) throws Exception{
-		System.out.println("/updateWorker.do 도달");
-		
-		System.out.println(map.get("user_no"));
-		System.out.println(map.get("user_id"));
-		System.out.println(map.get("pwd"));
-		System.out.println(map.get("name"));
-		System.out.println(map.get("phone"));
-		System.out.println(map.get("gender"));
-		System.out.println(map.get("age"));
-		System.out.println(map.get("work_start_time"));
-		System.out.println(map.get("work_end_time"));
-		System.out.println(map.get("work_start_date"));
-		System.out.println(map.get("work_end_date"));
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:main.do");
-		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("salary", salaryMap);
-		maps.put("map", map);
-		scheduleService.updateSchedule(maps);
-		userService.updateUser(map);
-
-		return mav;
-	}
-	@RequestMapping(value = "/updateWorkerUser.do",method = RequestMethod.POST )
-	public ModelAndView updateWorkerUser(@RequestParam Map<String,Object> map) throws Exception{
-		System.out.println("/updateWorkerUser.do 도달");
-		
-		System.out.println(map.get("user_no"));
-		System.out.println(map.get("user_id"));
-		System.out.println(map.get("pwd"));
-		System.out.println(map.get("name"));
-		System.out.println(map.get("phone"));
-		System.out.println(map.get("gender"));
-		System.out.println(map.get("age"));
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:main.do");
-		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("map", map);
-		userService.updateUser(map);
-		
-		return mav;
-	}
-	@RequestMapping(value = "/updateWorkerForm.do",method = RequestMethod.GET )
-	public ModelAndView updateWorkerForm(@RequestParam("user_no") int user_no, @RequestParam Map<String, Object> map) throws Exception{
-		System.out.println("/updateWorkerForm.do 도달");
-		
-		ModelAndView mav = new ModelAndView();
-		
-		try {
-			
-			userVO = userService.getUserByUser_no(user_no);
-			if(userVO != null) {
-				mav.addObject("userVO", userVO);
-				mav.addObject("work_start_date", map.get("work_start_date"));
-				mav.addObject("work_start_time", map.get("work_start_time"));
-				mav.addObject("work_end_date", map.get("work_end_date"));
-				mav.addObject("work_end_time", map.get("work_end_time"));
-				mav.addObject("schedule_no", map.get("schedule_no"));
-			}
-			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		mav.setViewName("updateWorker");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/updateWorkerUserForm.do" , method = RequestMethod.GET)
-	public ModelAndView updateWorkerUserForm(@RequestParam int user_no) throws Exception {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("updateWorkerUserForm");
-		
-		UserVO userVO = userService.getUserByUser_no(user_no);
-		mav.addObject("userVO", userVO);
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/updateScheduleForm.do" , method = RequestMethod.GET)
-	public ModelAndView updateScheduleForm(@ModelAttribute ScheduleVO scheduleVO) throws Exception {
-		
-		System.out.println("/updateScheduleForm.do 도달");
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("scheduleVO", scheduleVO);
-		mav.setViewName("updateScheduleForm");
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/updateSchedule.do" , method = RequestMethod.POST)
-	public ModelAndView updateSchedule(@RequestParam Map<String, Object> map ,CalcSalary salary) throws Exception {
-		
-		System.out.println("/updateSchedule.do 도달");
-		ModelAndView mav = new ModelAndView();
-		
-		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("salary", salaryMap);
-		maps.put("map", map);
-		
-		
-		scheduleService.updateSchedule(maps);
-		
-		String user_no  = (String) map.get("user_no");
-		@SuppressWarnings("unused")
-		String user_name =  (String) map.get("user_name");
-		
-		System.out.println(map.get("schedule_no"));
-		System.out.println(map.get("work_start_time"));
-		System.out.println(map.get("work_end_time"));
-		System.out.println(map.get("work_start_date"));
-		System.out.println(map.get("work_start_date"));
-
-		mav.setViewName("redirect:main2.do?user_no="+user_no);
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = "/listForm.do" , method = RequestMethod.GET)
-	public ModelAndView listForm(Model model) throws Exception{
-		
-		ModelAndView mav = new ModelAndView();
-		
-		List<UserVO> userList = userService.getUserList();
-		for (UserVO userVO : userList) {
-			System.out.println(userVO.getSalary());
-		}
-		mav.addObject("userList", userList);
-		mav.setViewName("list");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/deleteWorker.do" , method = RequestMethod.GET)
-	public ResponseEntity<String> deleteUser(@RequestParam int user_no , HttpServletRequest req , HttpServletResponse resp) throws Exception {
-		
-		System.out.println("/deleteWorker.do 이동 완료");
-		
-		org.springframework.http.HttpHeaders responseHeaders = new org.springframework.http.HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		String message = "<script>";
-		
-		int count = userService.deleteUser(user_no);
-		
-		if(count != 0) {
-			System.out.println(count);
-			message =  message + " alert('삭제 완료!'); ";
-			
-		}else {
-			System.out.println(count);
-			message = message + " alert('삭제 불가!'); ";
-		}
-		message = message + " location.href='"+req.getContextPath()+"/listForm.do'; ";
-		message = message + " </script> ";
-		
-		System.out.println(message);
-		
-		return new ResponseEntity<String>(message,responseHeaders,HttpStatus.OK);
-		
-	}
-	
-	@RequestMapping(value = "/settingForm.do" , method = RequestMethod.GET)
-	public ModelAndView settingForm(HttpServletRequest req, HttpServletResponse resp , @RequestParam int user_no) throws Exception {
-		
-		UserVO userVO = userService.getUserByUser_no(user_no);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("settingForm");
-		
-		mav.addObject("adminList", userService.getAdmin());
-		mav.addObject("userVO", userVO);
-		
-		
-		return mav;
-	}
-	
+	// 로그아웃
 	@RequestMapping(value = "/logout.do" , method = RequestMethod.GET)
 	public ResponseEntity<String> logout(HttpServletRequest req, HttpServletResponse resp, @RequestParam int user_no) throws Exception {
 		
@@ -456,21 +189,7 @@ public class LoginController {
 		
 		return new ResponseEntity<String>(message,responseHeaders,HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/workerInfo.do" , method = RequestMethod.GET)
-	public ModelAndView workerInfo(HttpServletRequest req, HttpServletResponse resp , @RequestParam int user_no) throws Exception{
-		
-		UserVO userVO = userService.getUserByUser_no(user_no);
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("workerInfo");
-		mav.addObject("userVO", userVO);
-		
-		return mav;
-		
-	}
 
-	
 	
 
 }

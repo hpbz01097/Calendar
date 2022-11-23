@@ -11,7 +11,7 @@
 <link href="css_design/insert_design.css" rel="stylesheet">
 </head>
 <body>
-	<jsp:include page="nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/nav.jsp"></jsp:include>
 	
 	<div class="insert_container">
 		<h1>근무시간 등록</h1>
@@ -43,7 +43,7 @@
 	<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/footer.jsp"></jsp:include>
 <script type="text/javascript">
 function cancel() {
 	if(confirm('작성을 취소하시겠습니까?')){

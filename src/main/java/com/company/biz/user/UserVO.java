@@ -10,7 +10,10 @@ public class UserVO {
 	private int gender;
 	private int age; 
 	private int grade;
+	
 	private String salary ;
+	private String workDay;
+	private String totalWorktime;
 	
 	
 	public int getUser_no() {
@@ -66,6 +69,18 @@ public class UserVO {
 	}
 	public void setSalary(String salary) {
 		this.salary = salary;
+	}
+	public String getWorkDay() {
+		return workDay;
+	}
+	public void setWorkDay(String workDay) {
+		this.workDay = workDay;
+	}
+	public String getTotalWorktime() {
+		return totalWorktime;
+	}
+	public void setTotalWorktime(String totalWorktime) {
+		this.totalWorktime = totalWorktime;
 	}
 	
 	

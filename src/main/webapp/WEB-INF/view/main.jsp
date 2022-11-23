@@ -78,7 +78,7 @@
         	<c:forEach var="schedule" items="${scheduleList}">
         	  {
                 title: "${schedule.name} - " + "${schedule.work_start_time}".substring(0,2) +"시 ~ "+ "${schedule.work_end_time}".substring(0,2)+"시",
-                url : '${contextPath}/updateWorkerForm.do?user_no=${schedule.user_no}&work_start_date=${schedule.work_start_date}&work_end_date=${schedule.work_end_date}&work_start_time=${schedule.work_start_time}&work_end_time=${schedule.work_end_time}&schedule_no=${schedule.schedule_no}',
+                url : '${contextPath}/updateScheduleForm.do?user_no=${schedule.user_no}&schedule_no=${schedule.schedule_no}&name=${schedule.name}&work_start_date=${schedule.work_start_date}&work_end_date=${schedule.work_end_date}&work_start_time=${schedule.work_start_time}&work_end_time=${schedule.work_end_time}&schedule_no=${schedule.schedule_no}',
                 start: "${schedule.work_start_date}T${schedule.work_start_time}",
                 end: "${schedule.work_end_date}T${schedule.work_end_time}",
                 backgroundColor : "yellow",
@@ -97,11 +97,11 @@
 </head>
 <body>
 
-	<jsp:include page="nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/nav.jsp"></jsp:include>
   <!-- calendar 태그 -->
   <div id='calendar-container'>
     <div id='calendar'></div>
   </div>
-<jsp:include page="footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/common_view/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -12,11 +12,11 @@
 </head>
 <body>
 
-	<jsp:include page="nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/nav.jsp"></jsp:include>
 	
 	<div class="insert_container">
 		<h1>근무자 수정</h1>
-	<form action="updateWorkerUser.do" method="post">
+	<form action="updateUser.do" method="post">
 	<table>
 		<tr>
 			<td>근무자번호</td>
@@ -54,7 +54,7 @@
 		<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/common_view/footer.jsp"></jsp:include>
 	
 </body>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>

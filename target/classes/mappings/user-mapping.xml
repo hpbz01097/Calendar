@@ -28,15 +28,33 @@
 		select pwd from PAYROLL_USER where phone = user_id = #{user_id}  and phone = #{phone}
 	</select>
 
-<!-- 	조인시키기 -->
  	<select id="getUserList" resultMap="userResult">
-		select u.user_no , u.name , u.phone , u.grade, ifnull(FORMAT(SUM(s.salary), 0),0) as salary 
-		from PAYROLL_USER u LEFT OUTER JOIN PAYROLL_SCHEDULE s
+		select u.user_no as user_no, u.name as name, u.phone as phone, ifnull(FORMAT(SUM(sal.salary), 0),0) as salary,
+		concat(ifnull(SUM(sal.totalWorktime), 0),'시간') as totalWorktime,
+		concat(ifnull(SUM(sal.workday),0),'일') as workDay
+		from PAYROLL_USER u 
+		LEFT OUTER JOIN PAYROLL_SCHEDULE s
 		on u.user_no=s.user_no
+		LEFT OUTER JOIN PAYROLL_SALARY sal
+		on s.schedule_no=sal.schedule_no
 		group by u.user_no
 		order by u.user_no asc;
 		
 	</select> 
+	
+	<select id="getUserSalary" parameterType="int" resultType="java.util.Map">
+		select sal.user_no as user_no, u.name as name,
+		DATE_FORMAT(sche.reg_date, "%Y-%m-%d %T") as reg_date,
+		DATE_FORMAT(sche.update_date, "%Y-%m-%d %T") as update_date,
+		concat(ifnull(sal.worktime,0),'시간') as workTime, concat(ifnull(sal.totalWorktime, 0),'시간') as totalWorktime,
+		concat(ifnull(sal.workDay,0),'일') as workDay, concat(FORMAT(ifnull(sal.salary,0), 0),'원') as salary,concat(FORMAT(sal.pay,0),'원') as pay,
+		concat(FORMAT(sal.pay*sal.workTime, 0),'원') as dayPay
+		from PAYROLL_SCHEDULE sche,PAYROLL_SALARY sal,PAYROLL_USER u
+		where sche.user_no=sal.user_no and sche.schedule_no=sal.schedule_no
+		and sal.user_no=#{user_no}
+		group by sal.schedule_no
+		order by sal.schedule_no
+	</select>
 
 	<select id="getUser" resultType="user">
 		select * from PAYROLL_USER where user_id=#{user_id} and pwd=#{pwd}
@@ -54,7 +72,7 @@
 		select * from PAYROLL_USER where grade = 0
 	</select>
 	
-	<insert id="insertWorker">
+	<insert id="insertUser">
 		insert into PAYROLL_USER values (#{user_no},#{name},#{phone},#{name},#{phone},#{gender},#{age},1)
 	</insert>
 	
@@ -78,13 +96,21 @@
 			where user_no = #{user_no}
 	</update>
 	
-	<delete id="deleteUser" parameterType="int">
-		DELETE PAYROLL_USER, PAYROLL_SCHEDULE 			
-		FROM PAYROLL_USER
-		    INNER JOIN
-		    PAYROLL_SCHEDULE ON PAYROLL_SCHEDULE.user_no = PAYROLL_USER.user_no
-		WHERE
-		    PAYROLL_USER.user_no = #{user_no};
+	<delete id="deleteUser" parameterType="user">
+<!-- 		<choose> -->
+<!-- 			<when test='scheduleList.schedule_no == 0'> -->
+				DELETE PAYROLL_USER, PAYROLL_SCHEDULE 			
+				FROM PAYROLL_USER
+			    INNER JOIN
+			    PAYROLL_SCHEDULE ON PAYROLL_SCHEDULE.user_no = PAYROLL_USER.user_no
+				WHERE
+			    PAYROLL_USER.user_no = #{user_no};
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 			    DELETE PAYROLL_USER FROM PAYROLL_USER WHERE user_no = #{user_no}; -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+
 		
 	</delete>
 	

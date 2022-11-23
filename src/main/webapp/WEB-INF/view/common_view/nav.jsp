@@ -9,10 +9,11 @@
 					<li class="logo_li"><img class="logo" src="img/PayRoll_Logo.png" /></li>
 					<li><a href="${contextPath }/main.do" class="bar">메인</a></li>
 				<c:if test="${grade == 0 }">	
-					<li><a href="${contextPath }/insertWorkerForm.do" class="bar">근무자 등록</a></li>
+					<li><a href="${contextPath }/insertUserForm.do" class="bar">근무자 등록</a></li>
 					<li><a href="${contextPath }/insertScheduleForm.do" class="bar">근무시간 등록</a></li>
 				</c:if>
-					<li><a href="${contextPath }/listForm.do" class="bar">리스트 / 급여</a></li>
+					<li><a href="${contextPath }/userListForm.do" class="bar">리스트 / 급여</a></li>
+					<li><a href="${contextPath }/userSalaryList.do" class="bar">급여 내역서</a></li>
 				<c:if test="${grade == 0 }">
 					<li><a href="${contextPath }/settingForm.do?user_no=${user_no}" class="bar">설정</a></li>
 				</c:if>
@@ -29,11 +30,4 @@
 			
 			location.href="${contextPath}/logout.do?user_no="+user_no;
 		}
-		
-		function workerInfo(user_no) {
-			
-			location.href="${contextPath}/workerInfo.do?user_no="+user_no;
-		}
-		
-	
 	</script>
