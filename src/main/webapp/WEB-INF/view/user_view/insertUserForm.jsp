@@ -19,7 +19,7 @@
 	<table>
 		<tr>
 			<td>근무자번호</td>
-			<td><input type="text" id="user_no" name="user_no" value="${maxUser_no + 1}" readonly="readonly"></td>
+			<td><input type="text" id="user_no" name="user_no" value="${maxUser_no + 1}" readonly="readonly" class="td_backcolor"></td>
 			<td><input type="hidden" id="user_id" name="user_id"></td>
 		</tr>
 		<tr>

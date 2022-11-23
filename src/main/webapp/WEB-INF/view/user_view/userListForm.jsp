@@ -23,7 +23,6 @@
 						<th width="200">근무자 번호</th>
 						<th width="200"> 이름 </th>
 						<th width="200">전화번호</th>
-<!-- 						<th width="200">월급</th> -->
 						<th width="200">총지급액</th>
 						<th width="200">총근무일</th>
 						<th width="200">총근무시간</th>
@@ -50,14 +49,14 @@
 									<c:when test="${userList.user_no == user_no }">
 										<tr>
 											<td>${userList.user_no }</td>
-											<td><a href="javascript:void(0);" onclick="updateUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
+											<td><a href="javascript:void(0);" onclick="settingUser('${userList.user_no }');" class="aTag"> ${userList.name}  </a> </td>
 											<c:set var="tel" value="${userList.phone }" />
 											<td>${fn:substring(tel,0,3)}-${fn:substring(tel,3,7)}-${fn:substring(tel,7,11)}</td>
 											<td>${userList.salary }원</td>
 											<td>${userList.workDay}</td>
 											<td>${userList.totalWorktime}</td>
-											<td> 근무일 조정 </td>
-											<td> 삭제 </td>			
+											<td> - </td>
+											<td> - </td>			
 										</tr>											
 									</c:when>
 									<c:otherwise>
@@ -69,8 +68,8 @@
 											<td> - </td>
 											<td> - </td>
 											<td> - </td>
-											<td>근무일 조정 </td>
-											<td>삭제 </td>		
+											<td> - </td>
+											<td> - </td>		
 										</tr>	
 									</c:otherwise>
 								</c:choose>
@@ -91,6 +90,12 @@ function updateUser(user_no) {
 	 
 	if(confirm('수정하시겠습니까?')){
 		location.href = "${contextPath}/updateUserForm.do?user_no="+user_no;
+	}
+}
+function settingUser(user_no) {
+	 
+	if(confirm('수정하시겠습니까?')){
+		location.href = "${contextPath}/settingForm.do?user_no="+user_no;
 	}
 }
 function deleteUser(user_no) {

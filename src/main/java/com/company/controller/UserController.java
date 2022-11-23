@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.company.biz.schedule.ScheduleService;
-import com.company.biz.schedule.ScheduleVO;
 import com.company.biz.user.UserService;
 import com.company.biz.user.UserVO;
 
@@ -124,7 +122,7 @@ public class UserController {
 			message =  message + " alert('삭제 완료!'); ";
 		}else {
 			System.out.println(count);
-			message = message + " alert('삭제 불가!'); ";
+			message = message + " alert('삭제 완료!'); ";
 		}
 		message = message + " location.href='"+req.getContextPath()+"/userListForm.do'; ";
 		message = message + " </script> ";

@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="myBatisScheduleDAO">
+<mapper namespace="ScheduleDAO">
 
  	<resultMap type="com.company.biz.schedule.ScheduleVO" id="scheduleResult">
 		<result property="user_no" column="user_no" />
@@ -100,7 +100,9 @@
 
 		</update>
 		
-		<!-- 	<delete id="deleteSchedule" parameterType="int">
-		delete from SCHEDULE where user_no = #{user_no}
-		</delete> -->
+	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM PAYROLL_SCHEDULE WHERE schedule_no = #{schedule_no};
+		
+		DELETE FROM PAYROLL_SALARY WHERE schedule_no = #{schedule_no};
+	</delete> 
 </mapper>

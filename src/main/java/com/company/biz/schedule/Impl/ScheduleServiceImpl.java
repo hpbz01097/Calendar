@@ -15,7 +15,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	@Autowired
 	private MyBatisScheduleDAO myBatisScheduleDAO;
-
+	
+	int count =0;
+	
 	@Override
 	public List<ScheduleVO> getScheduleList() {
 		return myBatisScheduleDAO.getScheduleList();
@@ -27,36 +29,28 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 	
 	@Override
-	public int insertSchedule(Map map) throws Exception {
-		// TODO Auto-generated method stub
+	public int insertSchedule(Map<String,Object> map) throws Exception {
 		return myBatisScheduleDAO.insertSchedule(map);
 	}
 	
 	@Override
-	public void updateSchedule(Map map) throws Exception {
-		// TODO Auto-generated method stub
-//		System.out.println(map.get("work_start_time"));
-//		System.out.println(map.get("work_end_time"));
-//		System.out.println(map.get("work_start_date"));
-//		System.out.println(map.get("work_start_date"));
+	public void updateSchedule(Map<String, Object> map) throws Exception {
 		 myBatisScheduleDAO.updateSchedule(map);
 	}
 	@Override
 	public int getMaxSchedule_no() throws Exception {
-		// TODO Auto-generated method stub
 		return myBatisScheduleDAO.getMaxSchedule_no();
 	}
 	
 	@Override
 	public List<UserScheduleVO> getScheduleListByUser_no(int user_no) throws Exception {
-		// TODO Auto-generated method stub
 		return myBatisScheduleDAO.getScheduleListByUser_no(user_no);
 	}
-	
-//	@Override
-//	public int deleteSchedule(int user_no) throws Exception {
-//		// TODO Auto-generated method stub
-//		return myBatisScheduleDAO.deleteSchedule(user_no);
-//	}
+
+	@Override
+	public int deleteSchedule(int schedule_no) throws Exception {
+		count =  myBatisScheduleDAO.getdeleteSchedule(schedule_no);
+		return count;
+	}
 	
 }

@@ -23,9 +23,14 @@
 		
 		<h4>
 		<br> 
-		<c:if test="${user_id != null }">
+		<c:choose>
+		<c:when test="${user_id != null }">
 			<span style="background: gray;">찾으신 아이디는 '${user_id }' 입니다!</span>
-		</c:if> 
+		</c:when>
+		<c:otherwise>
+			<span style="background: gray;">H.P를 입력해 주세요. </span>
+		</c:otherwise>
+		</c:choose>
 		</h4>
 		
 	<form action="${contextPath }/findID.do" method="post" style="padding: 0px;">

@@ -33,7 +33,7 @@
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,timeGridWeek'
+          right: 'dayGridMonth'
         },
         initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
         //initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
@@ -55,14 +55,16 @@
           console.log(obj);
           console.log("단 한번만 이벤트 실행3");
         },
-        select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.	
-//          	var eventTarget = $(".fc-daygrid-day");
-//          	var title=location.href='insertWorker.jsp#'	+eventTarget.attr("data-date");
+		select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.	
          	var title;
-         	<c:forEach var="schedule" items="${scheduleList}">
-         	location.href='${contextPath }/insertScheduleForm.do#${schedule.work_start_date}&${schedule.work_end_date}';
-         	</c:forEach>
-        	//안해도 될거같음 주소만 옮기고 insert에서 시간을 직접 주기
+//          	<c:forEach var="schedule" items="${scheduleList}">
+//          	 	<c:if test="${grade == 0}">
+//          			location.href='${contextPath }/insertScheduleForm.do?${schedule.work_start_date}&${schedule.work_end_date}';
+//          		</c:if>
+//          	</c:forEach>
+         	<c:if test="${grade == 0}">
+         		location.href='${contextPath }/insertScheduleForm.do';
+         	</c:if>
           if (title) {
             calendar.addEvent({
               title: title,
@@ -78,7 +80,9 @@
         	<c:forEach var="schedule" items="${scheduleList}">
         	  {
                 title: "${schedule.name} - " + "${schedule.work_start_time}".substring(0,2) +"시 ~ "+ "${schedule.work_end_time}".substring(0,2)+"시",
+                <c:if test="${grade == 0}">
                 url : '${contextPath}/updateScheduleForm.do?user_no=${schedule.user_no}&schedule_no=${schedule.schedule_no}&name=${schedule.name}&work_start_date=${schedule.work_start_date}&work_end_date=${schedule.work_end_date}&work_start_time=${schedule.work_start_time}&work_end_time=${schedule.work_end_time}&schedule_no=${schedule.schedule_no}',
+                </c:if>
                 start: "${schedule.work_start_date}T${schedule.work_start_time}",
                 end: "${schedule.work_end_date}T${schedule.work_end_time}",
                 backgroundColor : "yellow",

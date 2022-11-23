@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,17 +90,28 @@ public class LoginController {
 	
 	// 아이디 찾기
 	@RequestMapping(value = "/findID.do" , method = RequestMethod.POST)
-	public ModelAndView findID(HttpServletRequest req , HttpServletResponse resp , @RequestParam String phone) throws Exception {
+	public ModelAndView findID(HttpServletRequest req , HttpServletResponse res , @RequestParam String phone) throws Exception {
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=utf-8");
+		PrintWriter out = res.getWriter();
 		
 		System.out.println("/findID.do");
 		
 		String user_id = userService.selectIDbyPhone(phone);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login_view/findIDForm");
-		mav.addObject("user_id", user_id);
 		
-		return mav;
+		if (user_id != null) {
+			
+			mav.setViewName("login_view/findIDForm");
+			mav.addObject("user_id", user_id);
+			
+			return mav;
+		} else {
+			out.print("<script>alert('해당 번호와 맞는 아이디가 없습니다.');location.href='findIDForm.do';</script>");
+			return null;
+		}
+
 	}
 	
 	// 비밀번호 찾기 Form
@@ -116,22 +128,36 @@ public class LoginController {
 	
 	// 비밀번호 찾기
 	@RequestMapping(value = "/findPWD.do" , method = RequestMethod.POST)
-	public ModelAndView findPWD(HttpServletRequest req , HttpServletResponse resp , @RequestParam Map<String, Object> map) throws Exception {
+	public ModelAndView findPWD(HttpServletRequest req , HttpServletResponse res , @RequestParam Map<String, Object> map) throws Exception {
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=utf-8");
+		PrintWriter out = res.getWriter();
 		
 		System.out.println("/findPWD.do");
 		
 		String pwd = userService.selectPWDbyPhoneAndUser_id(map);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login_view/findPWDForm");
-		mav.addObject("pwd", pwd);
 		
-		return mav;
+		if (pwd != null) {
+			mav.setViewName("login_view/findPWDForm");
+			mav.addObject("pwd", pwd);
+			
+			return mav;
+		} else {
+			out.print("<script>alert('해당 번호와 아이디에 맞는 비밀번호가 없습니다.');location.href='findPWDForm.do';</script>");
+			return null;
+		}
+		
+
 	}
 	
 	// 로그인
 	@RequestMapping(value="/login.do",method = RequestMethod.POST)
-	public ModelAndView login(UserVO vo, HttpSession session , HttpServletRequest req) {
+	public ModelAndView login(UserVO vo, HttpSession session , HttpServletRequest req, HttpServletResponse res) throws Exception {
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=utf-8");
+		PrintWriter out = res.getWriter();
 		System.out.println("로그인 인증 요청." + vo.getUser_id() + "," + vo.getPwd());
 		
 		ModelAndView mav = new ModelAndView();
@@ -154,8 +180,9 @@ public class LoginController {
 			
 			return mav;
 		} else {
-			mav.setViewName("login_view/signUpForm");
-			return mav;
+
+			out.print("<script>alert('아이디와 비밀번호를 확인해주세요.');location.href='index.jsp';</script>");
+			return null;
 		}
 	}
 	

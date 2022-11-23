@@ -61,7 +61,7 @@
 	</select>
 	
 	<select id="getMaxUser_no" resultType="int">
-		select max(user_no) as user_no from PAYROLL_USER
+		select ifnull(max(user_no),0) as user_no from PAYROLL_USER
 	</select>
 	
 	<select id="getUserByUser_no" parameterType="int" resultType="user">
@@ -96,22 +96,12 @@
 			where user_no = #{user_no}
 	</update>
 	
-	<delete id="deleteUser" parameterType="user">
-<!-- 		<choose> -->
-<!-- 			<when test='scheduleList.schedule_no == 0'> -->
-				DELETE PAYROLL_USER, PAYROLL_SCHEDULE 			
-				FROM PAYROLL_USER
-			    INNER JOIN
-			    PAYROLL_SCHEDULE ON PAYROLL_SCHEDULE.user_no = PAYROLL_USER.user_no
-				WHERE
-			    PAYROLL_USER.user_no = #{user_no};
-<!-- 			</when> -->
-<!-- 			<otherwise> -->
-<!-- 			    DELETE PAYROLL_USER FROM PAYROLL_USER WHERE user_no = #{user_no}; -->
-<!-- 			</otherwise> -->
-<!-- 		</choose> -->
-
-		
+	<delete id="deleteUser" parameterType="int">	    
+			    DELETE FROM PAYROLL_USER WHERE user_no = #{user_no}; 
+			    
+			    DELETE FROM PAYROLL_SCHEDULE WHERE user_no = #{user_no}; 
+			    
+			    DELETE FROM PAYROLL_SALARY WHERE user_no = #{user_no}; 
 	</delete>
 	
 </mapper>

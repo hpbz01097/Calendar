@@ -38,7 +38,8 @@ work_end_time varchar(20) not null,
 work_start_date varchar(20) not null,
 work_end_date varchar(20) not null,
 reg_date datetime,
-update_date datetime
+update_date datetime,
+CONSTRAINT PAYROLL_USER PRIMARY KEY (user_no,work_start_time,work_end_time,work_start_date,work_end_date)
 )
 
 insert into PAYROLL_SCHEDULE values (3, 1,'테스트','10:30:00', '18:30:00' ,
@@ -160,3 +161,10 @@ select u.user_no , u.name , u.phone , u.grade, ifnull(SUM(s.salary),0) as salary
 		on u.user_no=s.user_no
 		group by u.user_no
 		order by u.user_no asc;
+		
+insert into PAYROLL_USER values (1, 'admin', '1234','사장님','01012345678', 0, 35, 0);
+insert into PAYROLL_USER values (2, '정영윤', '1234','정영윤','01012345678', 0, 35, 1);
+insert into PAYROLL_USER values (3, 'test1', '123456','테스트','01087654321', 0, 29, 1)
+		
+select * from PAYROLL_USER
+select * from PAYROLL_SCHEDULE		

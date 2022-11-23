@@ -24,19 +24,19 @@
 		</tr>
 		<tr>
 			<td>ID</td>
-			<td><input type="text" id="user_id" name="user_id" value="${userVO.user_id}"></td>
+			<td><input type="text" id="user_id" name="user_id" value="${userVO.user_id}" required="required"></td>
 		</tr>
 		<tr>
 			<td>PASSWORD</td>
-			<td><input type="text" id="pwd" name="pwd" value="${userVO.pwd}"></td>
+			<td><input type="text" id="pwd" name="pwd" value="${userVO.pwd}" required="required"></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" id="name" name="name" value="${userVO.name}"></td>
+			<td><input type="text" id="name" name="name" value="${userVO.name}" required="required"></td>
 		</tr>
 		<tr>
 			<td>핸드폰번호</td>
-			<td><input type="text" id="phone" name="phone" value="${userVO.phone }" placeholder="숫자만 입력해주세요">
+			<td><input type="text" id="phone" name="phone" value="${userVO.phone }" placeholder="숫자만 입력해주세요" required="required">
 			</td>
 		</tr>
 		<tr>
@@ -46,7 +46,7 @@
 		</tr>
 		<tr>
 			<td>나이</td>
-			<td><input type="text" name="age" id="age" value="${userVO.age}"></td>
+			<td><input type="text" name="age" id="age" value="${userVO.age}" required="required"></td>
 		</tr>
 
 	</table>

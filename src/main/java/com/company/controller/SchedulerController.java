@@ -3,7 +3,12 @@ package com.company.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,6 +108,32 @@ public class SchedulerController {
 		return mav;
 	}
 	
-	// 근무 시간 삭제 필요
+	// 근무 시간 삭제 
+	@RequestMapping(value = "/deleteSchedule.do")
+	public ResponseEntity<String> deleteSchedule(@RequestParam int schedule_no, HttpServletRequest req , HttpServletResponse resp) throws Exception {
+		System.out.println("/deleteSchedule.do 이동 완료");
+		
+		org.springframework.http.HttpHeaders responseHeaders = new org.springframework.http.HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		String message = "<script>";
+		
+		int count = scheduleService.deleteSchedule(schedule_no);
+		
+		if(count != 0) {
+			System.out.println(count);
+			message =  message + " alert('삭제 완료!'); ";
+		}else {
+			System.out.println(count);
+			message = message + " alert('삭제 완료!'); ";
+		}
+		message = message + " location.href='"+req.getContextPath()+"/main.do'; ";
+		message = message + " </script> ";
+		
+		System.out.println(message);
+		
+		return new ResponseEntity<String>(message,responseHeaders,HttpStatus.OK);
+		
+	}
+	
 	
 }

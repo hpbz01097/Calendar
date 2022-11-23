@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.9.15.202012132325-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.9.22.202204280911-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -9,6 +9,8 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>src/main/resources/business-layer.xml</config>
+		<config>src/main/webapp/WEB-INF/config/presentation-layer.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

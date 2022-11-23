@@ -20,10 +20,18 @@
 	<div class="section_container">
 	<br>
 		<h3>비밀번호 찾기</h3>
-		 <c:if test="${pwd != null }">
+		<h4>
+		<c:choose>
+		 <c:when test="${pwd != null }">
 		<br>
 			<span style="background: gray;">찾으신 비밀번호는 '${pwd }' 입니다!</span>
-		</c:if> 
+		</c:when> 
+		<c:otherwise>
+		<br>
+			<span style="background: gray;">H.P와 아이디를 입력해 주세요.</span>
+		</c:otherwise>
+		</c:choose>
+		</h4>
 		
 	<form action="${contextPath }/findPWD.do" method="post" style="padding: 0px;">
 

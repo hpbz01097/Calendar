@@ -22,17 +22,14 @@
 		<tr>
 			<td>근무자 번호</td>
 			<td><input type="text" id="schedule_no" name="user_no" value="${scheduleVO.user_no}" readonly="readonly"></td>
-	<!-- 		<td><input type="hidden" id="user_id" name="user_id"></td> -->
 		</tr>
 		<tr>
 			<td>근무 번호</td>
 			<td><input type="text" id="schedule_no" name="schedule_no" value="${scheduleVO.schedule_no}" readonly="readonly"></td>
-	<!-- 		<td><input type="hidden" id="user_id" name="user_id"></td> -->
 		</tr>
 		<tr>
 			<td>이름</td>
 			<td><input type="text" id="name" name="name" value="${scheduleVO.name }" readonly="readonly"></td>
-<!-- 			<td><input type="hidden" id="pwd" name="pwd"></td>-->
 		</tr>
 		<tr>
 			<td>근무시간</td>
@@ -48,6 +45,7 @@
 
 	</table>
 		<input type="submit" value="등록" class="inputBtn">
+		<input type="button" value="삭제" onclick="deleteBtn(${scheduleVO.schedule_no});" class="inputBtn">
 		<input type="button" value="취소" onclick="cancel()" class="inputBtn">
 	</form>
 	</div>
@@ -58,6 +56,11 @@ function cancel() {
 		location.href = "${contextPath}/main.do";
 	}
 }	
+function deleteBtn(schedule_no) {
+	if (confirm('삭제하시겠습니까?')) {
+		location.href = "${contextPath}/deleteSchedule.do?schedule_no="+schedule_no;
+	}
+}
 </script>
 </body>
 </html>

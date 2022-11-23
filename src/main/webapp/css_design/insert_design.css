@@ -87,3 +87,6 @@ table tr td {
 	color: white;
 	border-radius: 10px;
 }
+.td_backcolor {
+	background: #a0a0a0;
+}

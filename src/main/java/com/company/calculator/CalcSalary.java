@@ -19,8 +19,9 @@ public class CalcSalary {
 	// 최저시급 멤버변수
 	private int pay = 9160;
 
+	@SuppressWarnings({ "unused", "deprecation" })
 	public Map<String, Integer> calc() {
-		Map<String, Integer> map = new HashMap();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		int start_time = work_start_time.getHours();
 		int end_time = work_end_time.getHours();
 		int minute = work_end_time.getMinutes() - work_start_time.getMinutes();
@@ -31,13 +32,6 @@ public class CalcSalary {
 
 		System.out.println("시작시간 : " + work_start_time.getHours());
 		System.out.println("종료시간 : " + work_end_time.getHours());
-//		System.out.println("시작날짜 : "+work_start_date);
-//		System.out.println("종료날짜 : "+work_end_date);
-//		System.out.println("시작일 : "+start_date);
-//		System.out.println("종료일 : "+end_date);
-//		System.out.println("시작월 : "+start_month);
-//		System.out.println("종료월 : "+end_month);
-//		System.out.println("잔여 분계산 : "+minute);
 
 		long diffSec = ((work_end_date.getTime() - work_start_date.getTime()) / 1000);
 		long diffDays = diffSec / (24 * 60 * 60) + 1; // 일자수 차이

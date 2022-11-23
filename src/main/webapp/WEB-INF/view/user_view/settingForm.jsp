@@ -18,33 +18,35 @@
 	<table>
 		<tr>
 			<td>근무자번호</td>
-			<td><input type="text" id="user_no" name="user_no" value="${userVO.user_no}" readonly="readonly"></td>
+			<td><input type="text" id="user_no" name="user_no" value="${userVO.user_no}" readonly="readonly" class="td_backcolor"></td>
 		</tr>
 		<tr>
 			<td>ID</td>
-			<td><input type="text" id="user_id" name="user_id" value="${userVO.user_id}"></td>
+			<td><input type="text" id="user_id" name="user_id" value="${userVO.user_id}" required="required"></td>
 		</tr>
 		<tr>
 			<td>PASSWORD</td>
-			<td><input type="text" id="pwd" name="pwd" value="${userVO.pwd}"></td>
+			<td><input type="text" id="pwd" name="pwd" value="${userVO.pwd}" required="required"></td>
 		</tr>
 		<tr>
 			<td>이름</td>
-			<td><input type="text" id="name" name="name" value="${userVO.name}" readonly="readonly"></td>
+			<td><input type="text" id="name" name="name" value="${userVO.name}" readonly="readonly" class="td_backcolor"></td>
 		</tr>
 		<tr>
 			<td>핸드폰번호</td>
-			<td><input type="text" id="phone" name="phone" value="${userVO.phone }" readonly="readonly">
+			<td><input type="text" id="phone" name="phone" value="${userVO.phone }" readonly="readonly" class="td_backcolor">
 			</td>
 		</tr>
 		<tr>
 			<td>성별</td>
-			<td><input type="radio" name="gender" value="${userVO.gender}" id="genderMan">남 <input
-				type="radio" name="gender" value="${userVO.gender }" id="genderWoman">여</td>
+			<td>
+				<input type="radio" name="gender" value="${userVO.gender}" id="genderMan" readonly="readonly"  class="td_backcolor">남 
+				<input type="radio" name="gender" value="${userVO.gender }" id="genderWoman" readonly="readonly" class="td_backcolor">여
+			</td>
 		</tr>
 		<tr>
 			<td>나이</td>
-			<td><input type="text" name="age" id="age" value="${userVO.age}" readonly="readonly"></td>
+			<td><input type="text" name="age" id="age" value="${userVO.age}" readonly="readonly" class="td_backcolor"></td>
 		</tr>
 
 	</table>
