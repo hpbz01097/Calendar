@@ -32,6 +32,15 @@ public class LoginController {
 	
 	UserVO userVO = new UserVO();
 	
+	// index
+	@RequestMapping(value = "/" , method = RequestMethod.GET)
+	public ModelAndView index(HttpServletRequest req , HttpServletResponse resp) throws Exception {
+		System.out.println("/index 도달");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("index");
+		return mav;
+	}
+	
 	// 회원가입 Form
 	@RequestMapping(value = "/signUpForm.do" , method = RequestMethod.GET)
 	public ModelAndView signUpForm(HttpServletRequest req , HttpServletResponse resp) throws Exception {

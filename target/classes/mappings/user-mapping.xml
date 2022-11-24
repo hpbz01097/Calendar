@@ -17,25 +17,25 @@
 	</resultMap> 
 	
 	<select id="selectPhoneOverLap" parameterType="String" resultType="int">
-		select count(phone) from PAYROLL_USER where phone = #{phone}
+		select count(phone) from thuman0503.PAYROLL_USER where phone = #{phone}
 	</select>
 	
 	<select id="selectIDbyPhone" parameterType="String" resultType="String" > 
-		select user_id from PAYROLL_USER where phone = #{phone}
+		select user_id from thuman0503.PAYROLL_USER where phone = #{phone}
 	</select>
 	
 	<select id="selectPWDbyPhoneAndUser_id" parameterType="java.util.Map" resultType="String" > 
-		select pwd from PAYROLL_USER where phone = user_id = #{user_id}  and phone = #{phone}
+		select pwd from thuman0503.PAYROLL_USER where phone = user_id = #{user_id}  and phone = #{phone}
 	</select>
 
  	<select id="getUserList" resultMap="userResult">
 		select u.user_no as user_no, u.name as name, u.phone as phone, ifnull(FORMAT(SUM(sal.salary), 0),0) as salary,
 		concat(ifnull(SUM(sal.totalWorktime), 0),'시간') as totalWorktime,
 		concat(ifnull(SUM(sal.workday),0),'일') as workDay
-		from PAYROLL_USER u 
-		LEFT OUTER JOIN PAYROLL_SCHEDULE s
+		from thuman0503.PAYROLL_USER u 
+		LEFT OUTER JOIN thuman0503.PAYROLL_SCHEDULE s
 		on u.user_no=s.user_no
-		LEFT OUTER JOIN PAYROLL_SALARY sal
+		LEFT OUTER JOIN thuman0503.PAYROLL_SALARY sal
 		on s.schedule_no=sal.schedule_no
 		group by u.user_no
 		order by u.user_no asc;
@@ -49,7 +49,7 @@
 		concat(ifnull(sal.worktime,0),'시간') as workTime, concat(ifnull(sal.totalWorktime, 0),'시간') as totalWorktime,
 		concat(ifnull(sal.workDay,0),'일') as workDay, concat(FORMAT(ifnull(sal.salary,0), 0),'원') as salary,concat(FORMAT(sal.pay,0),'원') as pay,
 		concat(FORMAT(sal.pay*sal.workTime, 0),'원') as dayPay
-		from PAYROLL_SCHEDULE sche,PAYROLL_SALARY sal,PAYROLL_USER u
+		from thuman0503.PAYROLL_SCHEDULE sche,thuman0503.PAYROLL_SALARY sal,thuman0503.PAYROLL_USER u
 		where sche.user_no=sal.user_no and sche.schedule_no=sal.schedule_no
 		and sal.user_no=#{user_no}
 		group by sal.schedule_no
@@ -57,27 +57,27 @@
 	</select>
 
 	<select id="getUser" resultType="user">
-		select * from PAYROLL_USER where user_id=#{user_id} and pwd=#{pwd}
+		select * from thuman0503.PAYROLL_USER where user_id=#{user_id} and pwd=#{pwd}
 	</select>
 	
 	<select id="getMaxUser_no" resultType="int">
-		select ifnull(max(user_no),0) as user_no from PAYROLL_USER
+		select ifnull(max(user_no),0) as user_no from thuman0503.PAYROLL_USER
 	</select>
 	
 	<select id="getUserByUser_no" parameterType="int" resultType="user">
-		select * from PAYROLL_USER where user_no = #{user_no}
+		select * from thuman0503.PAYROLL_USER where user_no = #{user_no}
 	</select>
 	
 	<select id="getAdmin" resultMap="userResult">
-		select * from PAYROLL_USER where grade = 0
+		select * from thuman0503.PAYROLL_USER where grade = 0
 	</select>
 	
 	<insert id="insertUser">
-		insert into PAYROLL_USER values (#{user_no},#{name},#{phone},#{name},#{phone},#{gender},#{age},1)
+		insert into thuman0503.PAYROLL_USER values (#{user_no},#{name},#{phone},#{name},#{phone},#{gender},#{age},1)
 	</insert>
 	
 	<insert id="addAdmin" parameterType="user">
-		insert into PAYROLL_USER values(
+		insert into thuman0503.PAYROLL_USER values(
 		#{user_no},
 		#{user_id},
 		#{pwd}, 
@@ -90,18 +90,18 @@
 	</insert>
 	
 	<update id="updateUser" parameterType="java.util.Map">
-		update PAYROLL_USER set user_id = #{user_id},
+		update thuman0503.PAYROLL_USER set user_id = #{user_id},
 			pwd = #{pwd} , name = #{name} , phone = #{phone},
 			gender = #{gender} , age = #{age} 
 			where user_no = #{user_no}
 	</update>
 	
 	<delete id="deleteUser" parameterType="int">	    
-			    DELETE FROM PAYROLL_USER WHERE user_no = #{user_no}; 
+			    DELETE FROM thuman0503.PAYROLL_USER WHERE user_no = #{user_no}; 
 			    
-			    DELETE FROM PAYROLL_SCHEDULE WHERE user_no = #{user_no}; 
+			    DELETE FROM thuman0503.PAYROLL_SCHEDULE WHERE user_no = #{user_no}; 
 			    
-			    DELETE FROM PAYROLL_SALARY WHERE user_no = #{user_no}; 
+			    DELETE FROM thuman0503.PAYROLL_SALARY WHERE user_no = #{user_no}; 
 	</delete>
 	
 </mapper>
