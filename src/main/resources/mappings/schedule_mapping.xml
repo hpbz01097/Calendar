@@ -101,8 +101,9 @@
 		</update>
 		
 	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM PAYROLL_SALARY WHERE schedule_no = #{schedule_no};
 		DELETE FROM PAYROLL_SCHEDULE WHERE schedule_no = #{schedule_no};
 		
-		DELETE FROM PAYROLL_SALARY WHERE schedule_no = #{schedule_no};
+
 	</delete> 
 </mapper>

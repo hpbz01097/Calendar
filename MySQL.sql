@@ -1,6 +1,8 @@
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE DATABASE cal default CHARACTER SET UTF8; 
 CREATE DATABASE thuman0503 default CHARACTER SET UTF8; 
+
+
 create table PAYROLL_USER (
 user_no int,
 user_id varchar(20),
@@ -12,6 +14,36 @@ age smallint not null,
 grade tinyint not null, 
 CONSTRAINT PAYROLL_USER PRIMARY KEY (user_no)
 )
+
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
+create table PAYROLL_SCHEDULE (
+user_no int,
+schedule_no int,
+name varchar(20) not null,
+work_start_time varchar(20) not null,
+work_end_time varchar(20) not null,
+work_start_date varchar(20) not null,
+work_end_date varchar(20) not null,
+reg_date datetime,
+update_date datetime,
+constraint PAYROLL_USER foreign key(user_no) references PAYROLL_USER(user_no),
+PRIMARY KEY (user_no, schedule_no, work_start_time, work_end_time, work_start_date, work_end_date)
+)
+
+create table PAYROLL_SALARY(
+user_no int,
+schedule_no int,
+worktime int,
+totalWorktime int,
+workDay int,
+salary int default 0,
+pay int default 9160,
+CONSTRAINT PAYROLL_SCHUDULE foreign key(user_no,schedule_no) references PAYROLL_SCHEDULE(user_no,schedule_no),
+PRIMARY KEY (user_no, schedule_no)
+)
+
+
+
 drop table PAYROLL_USER
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 select * from PAYROLL_USER
@@ -28,34 +60,19 @@ insert into PAYROLL_USER values (3, 'test1', '123456','테스트','01087654321',
 
 update User set grade = 1 where user_no > 1
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
-create table PAYROLL_SCHEDULE (
-user_no int,
-schedule_no int,
-name varchar(20) not null,
-work_start_time varchar(20) not null,
-work_end_time varchar(20) not null,
-work_start_date varchar(20) not null,
-work_end_date varchar(20) not null,
-reg_date datetime,
-update_date datetime,
-CONSTRAINT PAYROLL_USER PRIMARY KEY (user_no,work_start_time,work_end_time,work_start_date,work_end_date)
-)
+
 
 insert into PAYROLL_SCHEDULE values (3, 1,'테스트','10:30:00', '18:30:00' ,
 '2022-11-01','2022-11-01',now(),now());
 select now() from dual
 select sysdate() from dual
 
-create table PAYROLL_SALARY(
-user_no int,
-schedule_no int,
-worktime int,
-totalWorktime int,
-workDay int,
-salary int default 0,
-pay int default 9160
-)
+
+
+insert into PAYROLL_SALARY values (1,1,1,1,1,9160,9160);
+insert into PAYROLL_SALARY values (1,2,1,1,1,9160,9160);
+insert into PAYROLL_SALARY values (1,3,1,1,1,9160,9160);
+insert into PAYROLL_SALARY values (1,3,2,3,4,9160,9160);
 
 update PAYROLL_SCHEDULE set update_date = sysdate() where user_no=4 and schedule=
 
@@ -168,3 +185,27 @@ insert into PAYROLL_USER values (3, 'test1', '123456','테스트','01087654321',
 		
 select * from PAYROLL_USER
 select * from PAYROLL_SCHEDULE		
+
+
+create table PAYROLL_SALARY(
+user_no int,
+schedule_no int,
+worktime int,
+totalWorktime int,
+workDay int,
+salary int default 0,
+pay int default 9160,
+constraint PAYROLL_SALARY primary key(user_no,schecule_no)
+ )
+ 
+create table PAYROLL_SALARY(
+schedule_no int primary key,
+worktime int,
+totalWorktime int,
+workDay int,
+salary int default 0,
+pay int default 9160,
+user_no int,
+constraint PAYROLL_USER foreign key(user_no) references PAYROLL_USER(user_no),
+constraint PAYROLL_SCHEDULE foreign key(schedule_no) references PAYROLL_SCHEDULE(schedule_no)
+ )
