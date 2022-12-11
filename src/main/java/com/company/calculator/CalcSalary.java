@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.company.biz.schedule.SalaryVO;
+
 public class CalcSalary {
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date work_start_time;
@@ -20,8 +22,8 @@ public class CalcSalary {
 	private int pay = 9160;
 
 	@SuppressWarnings({ "unused", "deprecation" })
-	public Map<String, Integer> calc() {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	public SalaryVO calc() {
+		SalaryVO salaryVO=new SalaryVO();
 		int start_time = work_start_time.getHours();
 		int end_time = work_end_time.getHours();
 		int minute = work_end_time.getMinutes() - work_start_time.getMinutes();
@@ -61,12 +63,17 @@ public class CalcSalary {
 		System.out.println("총 계약기간 : " + workDay + "일");
 		System.out.println("월급 : " + salary + "원");
 
-		map.put("workTime", workTime);
-		map.put("totalWorktime", totalWorktime);
-		map.put("workDay", workDay);
-		map.put("salary", salary);
+//		map.put("workTime", workTime);
+//		map.put("totalWorktime", totalWorktime);
+//		map.put("workDay", workDay);
+//		map.put("salary", salary);
 
-		return map;
+		salaryVO.setWorkTime(workTime);
+		salaryVO.setTotalWorktime(totalWorktime);
+		salaryVO.setWorkDay(workDay);
+		salaryVO.setSalary(salary);
+		
+		return salaryVO;
 	}
 
 	public Date getWork_start_time() {

@@ -52,14 +52,21 @@ public class UserController {
 	
 	// 근무자 등록 Form
 	@RequestMapping(value = "/insertUserForm.do",method = RequestMethod.GET )
-	public ModelAndView insertUserForm(Model model) throws Exception{
-		int count = userService.getMaxUser_no();
+	public ModelAndView insertUserForm(@RequestParam(name = "requireInsertUser",defaultValue = "0") String requireInsertUser) throws Exception{
 		
 		ModelAndView mav = new ModelAndView();
+		int count = userService.getMaxUser_no();
+		if(requireInsertUser.equals("1") ) {
+			mav.setViewName("user_view/insertUserForm");
+			mav.addObject("maxUser_no", count);
+			mav.addObject("requireInsertUser", requireInsertUser);
+			return mav;
+		}else {
 		mav.setViewName("user_view/insertUserForm");
-		
+
 		mav.addObject("maxUser_no", count);
 		return mav;
+		}
 	}
 	
 	// 근무자 등록

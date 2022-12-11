@@ -1,5 +1,6 @@
 package com.company.biz.schedule.Impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.company.biz.schedule.ScheduleService;
 import com.company.biz.schedule.ScheduleVO;
 import com.company.biz.schedule.UserScheduleVO;
+import com.company.calculator.CalcSalary;
 
 @Service("ScheduleService")
 public class ScheduleServiceImpl implements ScheduleService {
@@ -29,7 +31,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 	
 	@Override
-	public int insertSchedule(Map<String,Object> map) throws Exception {
+	public int insertSchedule(ScheduleVO schedule,CalcSalary salary) throws Exception {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("salaryVO", salary.calc());
+		map.put("scheduleVO", schedule);
 		return myBatisScheduleDAO.insertSchedule(map);
 	}
 	

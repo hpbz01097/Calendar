@@ -76,8 +76,8 @@
 	</select>
 	
 	<insert id="insertSchedule" parameterType="java.util.Map">
-		insert into PAYROLL_SCHEDULE values (#{map.user_no} , #{map.schedule_no}, #{map.name} , #{map.work_start_time}, #{map.work_end_time}, #{map.work_start_date}, #{map.work_end_date},now(),now());
-		insert into PAYROLL_SALARY VALUES (#{map.user_no},#{map.schedule_no}, #{salary.workTime},#{salary.totalWorktime},#{salary.workDay},#{salary.salary},default);
+		insert into PAYROLL_SCHEDULE values (#{scheduleVO.user_no} , #{scheduleVO.schedule_no}, #{scheduleVO.name} , #{scheduleVO.work_start_time}, #{scheduleVO.work_end_time}, #{scheduleVO.work_start_date}, #{scheduleVO.work_end_date},now(),now());
+		insert into PAYROLL_SALARY VALUES (#{scheduleVO.user_no},#{scheduleVO.schedule_no}, #{salaryVO.workTime},#{salaryVO.totalWorktime},#{salaryVO.workDay},#{salaryVO.salary},default);
 	</insert>
 	
 		<update id="updateSchedule" parameterType="java.util.Map">

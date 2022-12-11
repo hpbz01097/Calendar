@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" ></c:set>
+<c:if test="${requireInsertUser != null}">
+<script type="text/javascript">
+ alert('근무자 등록을 먼저 해야합니다.');
+</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>

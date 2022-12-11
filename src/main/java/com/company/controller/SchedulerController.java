@@ -45,19 +45,15 @@ public class SchedulerController {
 	
 	// 근무 시간 등록
 	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
-	public ModelAndView insertSchedule(@RequestParam Map<String,Object> map,CalcSalary salary) throws Exception{
+	public ModelAndView insertSchedule(ScheduleVO schedule, CalcSalary salary) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		
-		if(userService.getUserByUser_no(Integer.parseInt(String.valueOf(map.get("user_no"))) )==null) {
-			mav.setViewName("redirect:insertWorkerForm.do?requireInsertWorker=1");
+		if(userService.getUserByUser_no(schedule.getUser_no())==null) {
+			mav.setViewName("redirect:insertUserForm.do?requireInsertUser=1");
 			return mav;
 		}
 
-		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("salary", salaryMap);
-		maps.put("map", map);
-		scheduleService.insertSchedule(maps);
+		scheduleService.insertSchedule(schedule,salary);
 		
 		
 		mav.setViewName("redirect:main.do");
@@ -86,9 +82,9 @@ public class SchedulerController {
 		System.out.println("/updateSchedule.do 도달");
 		ModelAndView mav = new ModelAndView();
 		
-		Map<String, Integer> salaryMap=salary.calc();
+//		Map<String, Integer> salaryMap=salary.calc();
 		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("salary", salaryMap);
+		maps.put("salary", salary.calc());
 		maps.put("map", map);
 		
 		
