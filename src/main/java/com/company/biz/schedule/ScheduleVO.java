@@ -8,7 +8,7 @@ public class ScheduleVO {
 	private String work_end_date;
 	private String work_start_time;
 	private String work_end_time;
-	private String checked_days;
+	private String[] checked_days;
 	
 	public int getUser_no() {
 		return user_no;
@@ -52,11 +52,10 @@ public class ScheduleVO {
 	public void setWork_end_time(String work_end_time) {
 		this.work_end_time = work_end_time;
 	}
-	
-	public String getChecked_days() {
+	public String[] getChecked_days() {
 		return checked_days;
 	}
-	public void setChecked_days(String checked_days) {
+	public void setChecked_days(String[] checked_days) {
 		this.checked_days = checked_days;
 	}
 	@Override

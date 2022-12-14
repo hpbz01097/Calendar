@@ -152,5 +152,12 @@ public class CalcSalary {
 		
 		return complete.toString();
 	}
+	
+	public static String[] keepCheckedDays(String checked_days) {
+		
+		String[] transArr=checked_days.split(",");
+		
+		return transArr;
+	}
 
 }

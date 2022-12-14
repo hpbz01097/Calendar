@@ -39,18 +39,6 @@ public class SchedulerController {
 		mav.addObject("maxSchedule_no", count);
 		return mav;
 	}
-	
-//	// 근무 시간 등록
-//	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
-//	public ModelAndView insertSchedule(ScheduleVO schedule, CalcSalary2 salary) throws Exception{
-//		ModelAndView mav = new ModelAndView();
-//		
-//		salary.calcSalary();
-//		
-//		mav.setViewName("redirect:main.do");
-//		
-//		return mav;
-//	}
 
 	// 근무 시간 등록
 	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
@@ -76,8 +64,7 @@ public class SchedulerController {
 		
 		System.out.println("/updateScheduleForm.do 도달");
 		ModelAndView mav = new ModelAndView();
-		
-		String ListWorkDays=CalcSalary.transDays(scheduleService.getChecked_days(scheduleVO.getSchedule_no()));
+		String[] ListWorkDays=CalcSalary.keepCheckedDays(scheduleService.getChecked_days(scheduleVO.getSchedule_no()));
 		scheduleVO.setChecked_days(ListWorkDays);
 		mav.addObject("scheduleVO", scheduleVO);
 		mav.setViewName("schedule_view/updateScheduleForm");
