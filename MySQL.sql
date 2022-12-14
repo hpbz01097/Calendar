@@ -185,8 +185,9 @@ insert into PAYROLL_USER values (3, 'test1', '123456','테스트','01087654321',
 		
 select * from PAYROLL_USER
 select * from PAYROLL_SCHEDULE		
+select * from PAYROLL_SALARY		
 
-
+-- 이걸로 PAYROLL_SALARY 만듬
 create table PAYROLL_SALARY(
 user_no int,
 schedule_no int,
@@ -195,8 +196,12 @@ totalWorktime int,
 workDay int,
 salary int default 0,
 pay int default 9160,
-constraint PAYROLL_SALARY primary key(user_no,schecule_no)
+checked_days varchar(50),
+contractDay int,
+constraint PAYROLL_SALARY primary key(user_no,schedule_no)
  )
+ insert into PAYROLL_SALARY(user_no,schedule_no,salary) values(1,2,1000)
+ drop table PAYROLL_SALARY
  
 create table PAYROLL_SALARY(
 schedule_no int primary key,

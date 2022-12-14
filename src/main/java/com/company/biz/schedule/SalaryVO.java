@@ -6,6 +6,8 @@ public class SalaryVO {
 	private int totalWorktime;
 	private int workDay;
 	private int salary;
+	private int contractDay;
+	private String checked_days;
 	
 	public int getWorkTime() {
 		return workTime;
@@ -31,6 +33,20 @@ public class SalaryVO {
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
+	public int getContractDay() {
+		return contractDay;
+	}
+	public void setContractDay(int contractDay) {
+		this.contractDay = contractDay;
+	}
+	public String getChecked_days() {
+		return checked_days;
+	}
+	public void setChecked_days(String checked_days) {
+		this.checked_days = checked_days;
+	}
+	
+	
 	
 	
 }

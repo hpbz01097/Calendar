@@ -52,6 +52,10 @@
 		select max(User_NO) as user_no from PAYROLL_SCHEDULE
 	</select>
 	
+	<select id="getChecked_days" resultType="string">
+		select checked_days from PAYROLL_SALARY where schedule_no=#{schedule_no}
+	</select>
+	
 	<select id="getMaxSchedule_no" resultType="int">
 		select ifnull(max(schedule_no),1) as schedule_no from PAYROLL_SCHEDULE
 	</select>
@@ -77,23 +81,24 @@
 	
 	<insert id="insertSchedule" parameterType="java.util.Map">
 		insert into PAYROLL_SCHEDULE values (#{scheduleVO.user_no} , #{scheduleVO.schedule_no}, #{scheduleVO.name} , #{scheduleVO.work_start_time}, #{scheduleVO.work_end_time}, #{scheduleVO.work_start_date}, #{scheduleVO.work_end_date},now(),now());
-		insert into PAYROLL_SALARY VALUES (#{scheduleVO.user_no},#{scheduleVO.schedule_no}, #{salaryVO.workTime},#{salaryVO.totalWorktime},#{salaryVO.workDay},#{salaryVO.salary},default);
+		insert into PAYROLL_SALARY VALUES (#{scheduleVO.user_no},#{scheduleVO.schedule_no}, #{salaryVO.workTime},#{salaryVO.totalWorktime},#{salaryVO.workDay},#{salaryVO.salary},default,#{salaryVO.checked_days},#{salaryVO.contractDay});
 	</insert>
 	
 		<update id="updateSchedule" parameterType="java.util.Map">
 			<![CDATA[
-			update PAYROLL_SCHEDULE sche,PAYROLL_SALARY sal set sche.name = #{map.name},
-			sche.work_start_date = #{map.work_start_date} , sche.work_end_date = #{map.work_end_date} ,
-			sche.work_start_time = #{map.work_start_time} , sche.work_end_time = #{map.work_end_time} ,
+			update PAYROLL_SCHEDULE as sche,PAYROLL_SALARY as sal set
+			sche.work_start_date = #{scheduleVO.work_start_date} , sche.work_end_date = #{scheduleVO.work_end_date} ,
+			sche.work_start_time = #{scheduleVO.work_start_time} , sche.work_end_time = #{scheduleVO.work_end_time} ,
 			sche.update_date = sysdate() ,
-			sal.worktime = #{salary.workTime} , sal.workday = #{salary.workDay} , sal.salary = #{salary.salary} , sal.totalWorktime=#{salary.totalWorktime}
+			sal.worktime = #{salaryVO.workTime} , sal.workday = #{salaryVO.workDay} , sal.salary = #{salaryVO.salary} , sal.totalWorktime=#{salaryVO.totalWorktime},
+			sal.checked_days = #{salaryVO.checked_days} , sal.contractDay = #{salaryVO.contractDay}
 			]]>
 			<where>
-				<if test="map.user_no != null and map.user_no != '' ">
-					sche.user_no = #{map.user_no}
+				<if test="scheduleVO.user_no != null and scheduleVO.user_no != '' ">
+					sche.user_no = #{scheduleVO.user_no}
 				</if>
-				<if test="map.schedule_no != null and map.schedule_no != '' ">
-					and sche.schedule_no = #{map.schedule_no}
+				<if test="scheduleVO.schedule_no != null and scheduleVO.schedule_no != '' ">
+					and sche.schedule_no = #{scheduleVO.schedule_no}
 				</if>
 					and sche.schedule_no=sal.schedule_no 
 			</where>

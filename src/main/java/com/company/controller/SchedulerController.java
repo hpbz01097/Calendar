@@ -1,8 +1,5 @@
 package com.company.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,6 +40,18 @@ public class SchedulerController {
 		return mav;
 	}
 	
+//	// 근무 시간 등록
+//	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
+//	public ModelAndView insertSchedule(ScheduleVO schedule, CalcSalary2 salary) throws Exception{
+//		ModelAndView mav = new ModelAndView();
+//		
+//		salary.calcSalary();
+//		
+//		mav.setViewName("redirect:main.do");
+//		
+//		return mav;
+//	}
+
 	// 근무 시간 등록
 	@RequestMapping(value = "/insertSchedule.do",method = RequestMethod.POST )
 	public ModelAndView insertSchedule(ScheduleVO schedule, CalcSalary salary) throws Exception{
@@ -52,7 +61,7 @@ public class SchedulerController {
 			mav.setViewName("redirect:insertUserForm.do?requireInsertUser=1");
 			return mav;
 		}
-
+		
 		scheduleService.insertSchedule(schedule,salary);
 		
 		
@@ -61,13 +70,15 @@ public class SchedulerController {
 		return mav;
 	}
 	
-	// 근무 시간 수정 From
+	// 근무 시간 수정 Form
 	@RequestMapping(value = "/updateScheduleForm.do" , method = RequestMethod.GET)
 	public ModelAndView updateScheduleForm(@ModelAttribute ScheduleVO scheduleVO) throws Exception {
 		
 		System.out.println("/updateScheduleForm.do 도달");
 		ModelAndView mav = new ModelAndView();
 		
+		String ListWorkDays=CalcSalary.transDays(scheduleService.getChecked_days(scheduleVO.getSchedule_no()));
+		scheduleVO.setChecked_days(ListWorkDays);
 		mav.addObject("scheduleVO", scheduleVO);
 		mav.setViewName("schedule_view/updateScheduleForm");
 		
@@ -77,28 +88,13 @@ public class SchedulerController {
 	// 근무 시간 수정
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/updateSchedule.do" , method = RequestMethod.POST)
-	public ModelAndView updateSchedule(@RequestParam Map<String, Object> map ,CalcSalary salary) throws Exception {
+	public ModelAndView updateSchedule(ScheduleVO schedule, CalcSalary salary) throws Exception {
 		
 		System.out.println("/updateSchedule.do 도달");
 		ModelAndView mav = new ModelAndView();
 		
-//		Map<String, Integer> salaryMap=salary.calc();
-		Map<String, Object> maps=new HashMap<String, Object>();
-		maps.put("salary", salary.calc());
-		maps.put("map", map);
+		scheduleService.updateSchedule(schedule,salary);
 		
-		
-		scheduleService.updateSchedule(maps);
-
-		String user_no  = (String) map.get("user_no");
-		String user_name =  (String) map.get("user_name");
-		
-		System.out.println(map.get("schedule_no"));
-		System.out.println(map.get("work_start_time"));
-		System.out.println(map.get("work_end_time"));
-		System.out.println(map.get("work_start_date"));
-		System.out.println(map.get("work_start_date"));
-
 		mav.setViewName("redirect:main.do");
 		
 		return mav;
