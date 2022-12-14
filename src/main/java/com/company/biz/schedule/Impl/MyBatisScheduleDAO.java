@@ -54,4 +54,9 @@ public class MyBatisScheduleDAO {
 		return count;
 	}
 	
+	public String getChecked_days(int schedule_no) {
+		String checked_days=myBatis.selectOne("ScheduleDAO.getChecked_days",schedule_no);
+		return checked_days;
+	}
+	
 }

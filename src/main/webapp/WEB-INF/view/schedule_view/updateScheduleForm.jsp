@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" ></c:set>
 <!DOCTYPE html>
 <html>
@@ -40,7 +41,18 @@
 			<td>계약기간</td>
 			<td colspan="2"><input type="date" id="work_start_date" name="work_start_date" value="${scheduleVO.work_start_date }">
 			<input type="date" id="work_end_date" name="work_end_date" value="${scheduleVO.work_end_date }"></td>
-
+		</tr>
+		<tr>
+			<td>근무요일 변경</td>
+			<td colspan="2">
+			<form:checkbox path="scheduleVO.checked_days" value="MONDAY"/>월
+			<form:checkbox path="scheduleVO.checked_days" value="TUESDAY"/>화
+			<form:checkbox path="scheduleVO.checked_days" value="WEDNESDAY"/>수
+			<form:checkbox path="scheduleVO.checked_days" value="THURSDAY"/>목
+			<form:checkbox path="scheduleVO.checked_days" value="FRIDAY"/>금
+			<form:checkbox path="scheduleVO.checked_days" value="SATURDAY"/>토
+			<form:checkbox path="scheduleVO.checked_days" value="SUNDAY"/>일
+			</td>
 		</tr>
 
 	</table>
